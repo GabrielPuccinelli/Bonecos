@@ -11,35 +11,43 @@ document.addEventListener('DOMContentLoaded', () => {
             const username = usernameInput.value.trim();
             const password = passwordInput.value.trim();
 
-            // Simulate authentication
-            if (username === "user" && password === "password") {
+            // First, check for empty fields
+            if (!username || !password) {
+                loginErrorMessage.textContent = 'Por favor, preencha ambos os campos de usuário e senha.';
+                loginErrorMessage.style.display = 'block';
+                if (!username && usernameInput) {
+                    usernameInput.focus();
+                } else if (passwordInput) { // if username is filled but password is not
+                    passwordInput.focus();
+                }
+                return; // Stop further processing
+            }
+
+            // Retrieve users from localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+
+            // Find the user in the array
+            // IMPORTANT: In a real application, passwords should be hashed.
+            // This comparison is for demonstration purposes only with plain text passwords.
+            const foundUser = users.find(user => user.username === username && user.password === password);
+
+            if (foundUser) {
                 // Authentication successful
                 loginErrorMessage.style.display = 'none';
                 loginErrorMessage.textContent = ''; // Clear any previous error message
 
-                // Set login status in sessionStorage
                 sessionStorage.setItem('loggedIn', 'true');
+                sessionStorage.setItem('currentUser', foundUser.username); // Store current user's name
 
-                // Redirect to the main portal page
+                console.log('Login successful for user:', foundUser.username);
                 window.location.href = 'index.html';
-            } else if (username === "" || password === "") {
-                // Authentication failed - empty fields
-                loginErrorMessage.textContent = 'Por favor, preencha ambos os campos de usuário e senha.';
-                loginErrorMessage.style.display = 'block';
-                if (password !== "") { // Only clear password if it was typed into but username might be empty
-                    passwordInput.value = '';
-                }
-                if (username === "") {
-                    usernameInput.focus();
-                } else {
-                    passwordInput.focus();
-                }
             } else {
-                // Authentication failed - incorrect credentials
-                loginErrorMessage.textContent = 'Usuário ou senha inválidos. Por favor, tente novamente.';
+                // Authentication failed - incorrect credentials or user not found
+                loginErrorMessage.textContent = 'Usuário ou senha inválidos. Tente novamente.';
                 loginErrorMessage.style.display = 'block';
-                passwordInput.value = ''; // Clear password field for security/usability
-                passwordInput.focus();
+                if (passwordInput) passwordInput.value = ""; // Clear password field for security/usability
+                if (usernameInput) usernameInput.focus(); // Set focus back to username field
+                console.log('Login failed for user:', username);
             }
         });
     } else {

@@ -1,0 +1,125 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle at top left, #f00 0%, #ff0 50%, #00f 100%); /* Comic book gradient */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px; /* Padding for smaller screens */
+    box-sizing: border-box;
+}
+
+.register-container {
+    background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white */
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 0 5px #fff, 0 0 0 10px #000; /* Comic-style layered shadow */
+    max-width: 450px; /* Slightly wider for potentially more fields/text */
+    width: 90%;
+    text-align: center;
+    border: 3px solid #000; /* Solid black border */
+}
+
+.register-container h2 {
+    color: #333; /* Dark color for heading */
+    margin-bottom: 1.2em; /* Adjusted margin */
+    font-size: 1.8em; /* Adjusted font size */
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0px #ffcc00, 2px 2px 0px #000; /* Yellow/Black shadow */
+}
+
+.register-container form div {
+    margin-bottom: 1.2em; /* Space between form groups */
+}
+
+.register-container label {
+    display: block;
+    margin-bottom: 0.4em; /* Slightly less margin */
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+    font-size: 0.95em; /* Slightly smaller label */
+}
+
+.register-container input[type="text"],
+.register-container input[type="password"] {
+    width: 100%;
+    padding: 0.7em; /* Slightly smaller padding */
+    border: 2px solid #555;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: #fff;
+    color: #333;
+}
+
+.register-container input[type="text"]:focus,
+.register-container input[type="password"]:focus {
+    border-color: #ffcc00; /* Yellow border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+}
+
+.register-container button[type="submit"] {
+    background-color: #ffcc00; /* Yellow button */
+    color: #333;
+    border: 2px solid #000;
+    padding: 0.7em 1em; /* Adjusted padding */
+    font-size: 1.1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 2px 2px 0px #000;
+    margin-top: 0.5em; /* Added margin top */
+}
+
+.register-container button[type="submit"]:hover {
+    background-color: #e6b800; /* Darker yellow on hover */
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #000;
+}
+
+.register-container .message {
+    /* General styling for the message paragraph */
+    margin-top: 1em;
+    font-size: 0.9em;
+    font-weight: bold;
+    min-height: 1em; /* Reserve space */
+    /* Specific colors like red/green will be applied via JS by adding classes like .error or .success */
+    color: #333; /* Default color */
+}
+
+/* Styling for .message.success and .message.error (to be added by JS) */
+.register-container .message.success {
+    color: #008000; /* Green */
+    /* background-color: #e6ffe6; Light green background */
+    /* border: 1px solid #008000; */
+    /* padding: 0.5em; */
+}
+
+.register-container .message.error {
+    color: #D8000C; /* Red */
+    /* background-color: #FFD2D2; Light red background */
+    /* border: 1px solid #D8000C; */
+    /* padding: 0.5em; */
+}
+
+.register-container p { /* For the "Já tem uma conta?" paragraph */
+    margin-top: 1.5em;
+    font-size: 0.9em;
+    color: #333;
+}
+
+.register-container p a {
+    color: #007bff; /* Standard link blue, or a thematic color */
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.register-container p a:hover {
+    color: #0056b3; /* Darker blue on hover */
+}

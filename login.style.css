@@ -88,4 +88,21 @@ body {
     font-size: 0.9em;
     font-weight: bold;
     min-height: 1em; /* Reserve space even if empty to prevent layout shift */
+    color: #D8000C; /* Explicitly set error color here too */
+}
+
+.login-container .register-link-paragraph {
+    margin-top: 1.5em; /* Spacing from the form/error message */
+    font-size: 0.9em;
+    color: #333; /* Match other paragraph text if any, or keep it distinct */
+}
+
+.login-container .register-link-paragraph a {
+    color: #007bff; /* Standard link blue, can be themed */
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.login-container .register-link-paragraph a:hover {
+    color: #0056b3; /* Darker blue on hover */
 }

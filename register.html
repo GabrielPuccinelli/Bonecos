@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Portal de Colecionáveis</title>
+    <link rel="stylesheet" href="register.style.css">
+</head>
+<body>
+    <div class="register-container">
+        <h2>Cadastro de Novo Usuário</h2>
+        <form id="register-form">
+            <div>
+                <label for="reg-username">Usuário:</label>
+                <input type="text" id="reg-username" name="reg-username" required>
+            </div>
+            <div>
+                <label for="reg-password">Senha:</label>
+                <input type="password" id="reg-password" name="reg-password" required>
+            </div>
+            <div>
+                <label for="reg-confirm-password">Confirmar Senha:</label>
+                <input type="password" id="reg-confirm-password" name="reg-confirm-password" required>
+            </div>
+            <button type="submit">Cadastrar</button>
+            <p id="register-message" class="message" style="display: none;"></p>
+        </form>
+        <p>Já tem uma conta? <a href="login.html">Faça login aqui</a>.</p>
+    </div>
+    <script src="register.script.js"></script>
+</body>
+</html>
