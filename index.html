@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Colecionáveis Marvel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Portal de Colecionáveis Marvel</h1>
+    </header>
+    <main>
+        <h2>Meus Colecionáveis</h2>
+        <div class="collection-grid">
+            <div class="collectible-item">
+                <img src="https://loremflickr.com/200/300/ironman,actionfigure,marvel?random=1" alt="Iron Man Mark L">
+                <h3>Iron Man Mark L</h3>
+                <p>Ano: 2018</p>
+                <p>Coleção: Vingadores: Guerra Infinita - Hot Toys</p>
+            </div>
+            <div class="collectible-item">
+                <img src="https://loremflickr.com/200/300/captainamerica,actionfigure,marvel?random=2" alt="Captain America (Endgame)">
+                <h3>Captain America (Endgame)</h3>
+                <p>Ano: 2020</p>
+                <p>Coleção: Vingadores: Ultimato - Hot Toys</p>
+            </div>
+            <div class="collectible-item">
+                <img src="https://loremflickr.com/200/300/thanos,actionfigure,marvel?random=3" alt="Thanos (Endgame)">
+                <h3>Thanos (Endgame)</h3>
+                <p>Ano: 2019</p>
+                <p>Coleção: Vingadores: Ultimato - Hot Toys</p>
+            </div>
+        </div>
+
+        <section id="upload-section">
+            <h2>Adicionar Nova Imagem de Colecionável</h2>
+            <form id="upload-form">
+                <div>
+                    <label for="image-upload">Escolha uma imagem:</label>
+                    <input type="file" id="image-upload" name="image-upload" accept="image/*">
+                </div>
+                <img id="image-preview" src="#" alt="Pré-visualização da imagem">
+                <button type="submit">Adicionar à Galeria</button>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
