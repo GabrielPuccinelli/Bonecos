@@ -1,0 +1,222 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Changed font for a slightly more comic feel */
+    background: radial-gradient(circle at top left, #f00 0%, #ff0 50%, #00f 100%); /* More dynamic comic background */
+    min-height: 100vh;
+    color: #fff; /* White text for better contrast on dark background */
+    padding-top: 20px; /* Add some padding at the top */
+    padding-bottom: 50px; /* Add padding at bottom for scroll */
+}
+
+header {
+    background-color: #af0000; /* Dark red background for header */
+    color: #fff;
+    padding: 15px 30px; /* Adjusted padding for flex items */
+    margin-bottom: 30px;
+    border-bottom: 5px solid #ffcc00; /* Yellow border bottom */
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between title and button */
+    align-items: center; /* Vertically align items */
+}
+
+header h1 {
+    font-size: 2.2rem; /* Slightly adjust size if needed */
+    text-shadow: 3px 3px 0px #000;
+    margin: 0; /* Remove default margin if any */
+    text-transform: uppercase;
+    flex-grow: 1; /* Allow title to take available space if button is small */
+    text-align: left; /* Align title to the left */
+}
+
+#logout-button {
+    background-color: #f44336; /* Red */
+    color: white;
+    border: 2px solid #000; /* Black border to match theme */
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem; /* Unified font size */
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 20px; /* Space from title */
+    box-shadow: 2px 2px 0px #000; /* Simple shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#logout-button:hover {
+    background-color: #d32f2f; /* Darker red */
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #000;
+}
+
+
+main {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto; /* Center main content */
+    padding: 20px;
+    background-color: rgba(0,0,0,0.5); /* Semi-transparent black background for content area */
+    border-radius: 10px;
+}
+
+main h2 { /* This applies to both "Meus Colecionáveis" and "Adicionar Nova Imagem..." */
+    text-align: center;
+    margin-top: 20px; /* Added margin top for spacing if it's not the first child */
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #ffcc00; /* Yellow for subheadings */
+    text-transform: uppercase;
+    text-shadow: 2px 2px 0px #000;
+}
+
+.collection-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-bottom: 40px; /* Add margin to separate from upload section */
+}
+
+.collectible-item {
+    background-color: #f9f9f9;
+    border: 3px solid #333;
+    border-radius: 8px;
+    padding: 15px;
+    width: calc(33.333% - 20px);
+    min-width: 250px;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    color: #333;
+}
+
+.collectible-item img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.collectible-item h3 {
+    font-size: 1.2rem;
+    color: #d00000;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.collectible-item p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 5px;
+}
+
+/* Upload Section Styles */
+#upload-section {
+    padding: 20px;
+    margin-top: 30px; /* Space above the upload section */
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter background for this section */
+    border-radius: 8px;
+    border: 2px dashed #ffcc00; /* Dashed yellow border */
+}
+
+#upload-section h2 { /* Specific styling if needed, but inherits main h2 styles */
+    margin-top: 0; /* Reset margin top if it's the first element in this section */
+}
+
+#upload-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* Space between form elements */
+}
+
+#upload-form label {
+    font-size: 1.1rem;
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+}
+
+#upload-form input[type="file"] {
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff; /* White background for input */
+    color: #333; /* Dark text for input */
+}
+
+#image-preview {
+    display: none; /* Initially hidden */
+    max-width: 200px;
+    max-height: 200px;
+    border: 3px solid #ffcc00; /* Yellow border for preview */
+    border-radius: 4px;
+    margin-top: 10px;
+    object-fit: cover; /* Ensures the image covers the area well */
+}
+
+#upload-form button[type="submit"] {
+    background-color: #ffcc00; /* Yellow button */
+    color: #333; /* Dark text */
+    border: 2px solid #000;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#upload-form button[type="submit"]:hover {
+    background-color: #e6b800; /* Darker yellow on hover */
+    transform: translateY(-2px);
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .collectible-item {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 10px;
+    }
+    header {
+        padding: 15px; /* Adjust padding for smaller screens */
+        flex-direction: column; /* Stack title and button on small screens */
+        gap: 10px; /* Add gap between title and button when stacked */
+    }
+    header h1 {
+        font-size: 1.8rem; /* Adjust title size for small screens */
+        text-align: center; /* Center title when stacked */
+    }
+    #logout-button {
+        width: 100%; /* Make logout button full width on small screens */
+        margin-left: 0; /* Remove margin when stacked */
+    }
+    main h2 {
+        font-size: 1.8rem;
+    }
+    .collectible-item {
+        width: calc(100% - 20px);
+        min-width: 200px;
+    }
+    #upload-form {
+        align-items: stretch; /* Stretch form elements on smaller screens */
+    }
+    #upload-form button[type="submit"] {
+        width: 100%;
+    }
+}

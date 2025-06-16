@@ -1,0 +1,91 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle at top left, #f00 0%, #ff0 50%, #00f 100%); /* Comic book gradient from main style */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px; /* Add some padding for smaller screens so container isn't flush with edge */
+    box-sizing: border-box;
+}
+
+.login-container {
+    background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque for readability */
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 0 5px #fff, 0 0 0 10px #000; /* Comic-style layered shadow */
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    border: 3px solid #000; /* Solid black border */
+}
+
+.login-container h2 {
+    color: #333; /* Dark color for heading */
+    margin-bottom: 1.5em;
+    font-size: 2em;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 0px #ffcc00, 2px 2px 0px #000; /* Yellow/Black shadow for comic effect */
+}
+
+.login-container form div {
+    margin-bottom: 1.5em; /* Space between form groups */
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 0.5em;
+    text-align: left;
+    font-weight: bold;
+    color: #333; /* Dark label text */
+    font-size: 1em;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 0.8em;
+    border: 2px solid #555; /* Darker border for inputs */
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: #fff;
+    color: #333;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    border-color: #ffcc00; /* Yellow border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+}
+
+.login-container button[type="submit"] {
+    background-color: #ffcc00; /* Yellow button - theme color */
+    color: #333; /* Dark text */
+    border: 2px solid #000; /* Black border */
+    padding: 0.8em 1em;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 2px 2px 0px #000; /* Simple shadow for button */
+}
+
+.login-container button[type="submit"]:hover {
+    background-color: #e6b800; /* Darker yellow on hover */
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #000;
+}
+
+.login-container .error-message {
+    /* color: red; is set inline in HTML, but can be overridden or standardized here */
+    margin-top: 1em;
+    font-size: 0.9em;
+    font-weight: bold;
+    min-height: 1em; /* Reserve space even if empty to prevent layout shift */
+}
