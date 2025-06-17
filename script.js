@@ -49,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- Dashboard specific elements and functions ---
-    // Guard all dashboard-specific logic
     if (document.body.contains(document.getElementById('upload-form')) && document.body.contains(document.querySelector('.collection-grid'))) {
 
         const imageUploadInput = document.getElementById('image-upload');
@@ -59,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const collectibleNameInput = document.getElementById('collectible-name');
         const collectibleSourceInput = document.getElementById('collectible-source');
         const collectibleYearInput = document.getElementById('collectible-year');
+        const collectibleForTradeCheckbox = document.getElementById('collectible-for-trade'); // New DOM ref
         const uploadFormMessage = document.getElementById('upload-form-message');
 
         const collectionGrid = document.querySelector('.collection-grid');
@@ -85,12 +85,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         function resetFormTo謚() {
-            if (uploadForm) uploadForm.reset();
+            if (uploadForm) uploadForm.reset(); // This should reset the checkbox too
             if (imagePreview) {
                 imagePreview.style.display = 'none';
                 imagePreview.src = '#';
             }
             if(imageUploadInput) imageUploadInput.value = '';
+            if (collectibleForTradeCheckbox) collectibleForTradeCheckbox.checked = false; // Explicitly reset
 
             editingCollectibleId = null;
             if (formTitle) formTitle.textContent = "Adicionar Novo Boneco à Coleção";
@@ -110,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (collectibleIndex !== -1) {
                     users[userIndex].collectibles.splice(collectibleIndex, 1);
                     localStorage.setItem('users', JSON.stringify(users));
-                    renderUserGallery(); // Must be defined and callable
+                    renderUserGallery();
                     showUploadFormMessage('Boneco deletado com sucesso!', 'success');
                     if(editingCollectibleId === collectibleId) resetFormTo謚();
                 } else {
@@ -126,10 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = users.find(u => u.username === currentUsername);
             if (user && user.collectibles) {
                 const collectibleToEdit = user.collectibles.find(c => c.id === collectibleId);
-                if (collectibleToEdit && collectibleNameInput && collectibleSourceInput && collectibleYearInput && imagePreview && imageUploadInput && formTitle && submitButton && editModeIndicator && uploadFormMessage) {
+                if (collectibleToEdit && collectibleNameInput && collectibleSourceInput && collectibleYearInput && imagePreview && imageUploadInput && formTitle && submitButton && editModeIndicator && uploadFormMessage && collectibleForTradeCheckbox) {
                     collectibleNameInput.value = collectibleToEdit.name;
                     collectibleSourceInput.value = collectibleToEdit.source;
                     collectibleYearInput.value = collectibleToEdit.year;
+                    collectibleForTradeCheckbox.checked = collectibleToEdit.isForTrade || false; // Populate checkbox
                     imagePreview.src = collectibleToEdit.imageUrl;
                     imagePreview.style.display = 'block';
                     imageUploadInput.value = '';
@@ -157,7 +159,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const loggedInUser = users.find(user => user.username === currentUsername);
 
             if (!collectionGrid || !collectibleCountDisplay) {
-                 // These elements are specific to dashboard.html, so if not found, just return silently.
                 console.log("Gallery or count display not found, skipping renderUserGallery (expected on non-dashboard pages).");
                 return;
             }
@@ -169,7 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const itemDiv = document.createElement('div');
                     itemDiv.classList.add('collectible-item');
                     itemDiv.dataset.collectibleId = collectible.id;
-                    // ... (rest of item creation code from previous version) ...
+
                     const img = document.createElement('img');
                     img.src = collectible.imageUrl;
                     img.alt = collectible.name;
@@ -183,25 +184,32 @@ document.addEventListener('DOMContentLoaded', () => {
                     const yearP = document.createElement('p');
                     yearP.textContent = `Ano: ${collectible.year}`;
 
+                    itemDiv.appendChild(img);
+                    itemDiv.appendChild(nameH3);
+                    itemDiv.appendChild(sourceP);
+                    itemDiv.appendChild(yearP);
+
+                    if (collectible.isForTrade) { // Display For Trade indicator
+                        const forTradeIndicator = document.createElement('div');
+                        forTradeIndicator.classList.add('for-trade-indicator');
+                        forTradeIndicator.textContent = 'Negociável';
+                        itemDiv.appendChild(forTradeIndicator);
+                    }
+
+                    const buttonsWrapper = document.createElement('div');
+                    buttonsWrapper.classList.add('collectible-item-actions');
                     const editButton = document.createElement('button');
                     editButton.textContent = 'Editar';
                     editButton.classList.add('edit-btn');
                     editButton.addEventListener('click', () => handleEditCollectible(collectible.id));
+                    buttonsWrapper.appendChild(editButton);
 
                     const deleteButton = document.createElement('button');
                     deleteButton.textContent = 'Deletar';
                     deleteButton.classList.add('delete-btn');
                     deleteButton.addEventListener('click', () => handleDeleteCollectible(collectible.id));
-
-                    const buttonsWrapper = document.createElement('div');
-                    buttonsWrapper.classList.add('collectible-item-actions');
-                    buttonsWrapper.appendChild(editButton);
                     buttonsWrapper.appendChild(deleteButton);
 
-                    itemDiv.appendChild(img);
-                    itemDiv.appendChild(nameH3);
-                    itemDiv.appendChild(sourceP);
-                    itemDiv.appendChild(yearP);
                     itemDiv.appendChild(buttonsWrapper);
                     collectionGrid.appendChild(itemDiv);
                 });
@@ -234,18 +242,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             });
-        } else {
-             // console.warn("Image upload input or preview element not found (expected on non-dashboard pages).");
         }
 
-        if (uploadForm && collectibleNameInput && collectibleSourceInput && collectibleYearInput && imageUploadInput && showUploadFormMessage && resetFormTo謚 && renderUserGallery) {
+        if (uploadForm && collectibleNameInput && collectibleSourceInput && collectibleYearInput && imageUploadInput && collectibleForTradeCheckbox && showUploadFormMessage && resetFormTo謚 && renderUserGallery) {
             uploadForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                // ... (rest of submit logic from previous version, it's already quite robust) ...
                 const name = collectibleNameInput.value.trim();
                 const source = collectibleSourceInput.value.trim();
                 const year = collectibleYearInput.value.trim();
                 const imageFile = imageUploadInput.files[0];
+                const isForTrade = collectibleForTradeCheckbox.checked; // Get checkbox value
 
                 if (!name || !source || !year) {
                     showUploadFormMessage('Todos os campos de texto devem ser preenchidos.', 'error');
@@ -267,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             users[userIndex].collectibles[collectibleIndex].name = name;
                             users[userIndex].collectibles[collectibleIndex].source = source;
                             users[userIndex].collectibles[collectibleIndex].year = year;
+                            users[userIndex].collectibles[collectibleIndex].isForTrade = isForTrade; // Update isForTrade
                             if (imageDataUrlToStore) {
                                 users[userIndex].collectibles[collectibleIndex].imageUrl = imageDataUrlToStore;
                             }
@@ -282,7 +289,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             return;
                         }
                         const newCollectible = {
-                            id: Date.now().toString(), name: name, source: source, year: year, imageUrl: imageDataUrlToStore
+                            id: Date.now().toString(), name: name, source: source, year: year, imageUrl: imageDataUrlToStore,
+                            isForTrade: isForTrade // Add isForTrade to new collectible
                         };
                         if (!users[userIndex].collectibles) users[userIndex].collectibles = [];
                         users[userIndex].collectibles.push(newCollectible);
@@ -306,13 +314,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             });
-        } else {
-            // console.warn("Upload form or its core components not found (expected on non-dashboard pages).");
         }
 
-        // Initial render for dashboard.html
-        if (typeof renderUserGallery === "function") { // Check if function is defined (i.e. on dashboard)
+        if (typeof renderUserGallery === "function") {
              renderUserGallery();
         }
-    } // End of dashboard specific logic guard
+    }
 });

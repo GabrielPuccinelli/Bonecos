@@ -7,22 +7,25 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: radial-gradient(circle at top left, #f00 0%, #ff0 50%, #00f 100%);
+    background-color: #1a1a2e; /* Dark theme background */
+    color: #e0e0e0; /* Default light text color */
     min-height: 100vh;
-    color: #fff;
-    padding-top: 20px;
-    padding-bottom: 50px;
+    padding-top: 0; /* Remove padding-top if header is sticky or fixed */
+    padding-bottom: 50px; /* Keep padding for scroll */
 }
 
 header {
-    background-color: #af0000;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker, consistent with public-gallery header */
     color: #fff;
     padding: 15px 30px;
     margin-bottom: 30px;
-    border-bottom: 5px solid #ffcc00;
+    border-bottom: 2px solid #ffcc00; /* Thematic yellow accent */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky; /* Make header sticky */
+    top: 0;
+    z-index: 1000;
 }
 
 .header-left-content {
@@ -33,14 +36,15 @@ header {
 }
 
 #user-profile-header-info {
-    /* display: none; set by JS */
+    /* display is controlled by JS */
 }
 #header-profile-image {
-    /* Styles set by inline HTML */
+    /* Inline styles: width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff; */
+    border-color: #ffcc00; /* Change border to yellow */
 }
 #header-username {
     font-size: 1em;
-    /* display:block; is now in inline style in HTML */
+    color: #ffcc00; /* Make username yellow */
 }
 
 .user-details-header {
@@ -48,165 +52,149 @@ header {
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    line-height: 1.2; /* Adjust line height for stacked text */
+    line-height: 1.2;
 }
 
 #nav-edit-profile-link {
     font-size: 0.8em;
-    color: #ccc;
-    text-decoration: underline;
+    color: #b0b0d0; /* Lighter purple/blue for secondary link */
+    text-decoration: none;
     margin-top: 2px;
 }
-
 #nav-edit-profile-link:hover {
     color: #fff;
+    text-decoration: underline;
 }
 
 header h1 {
-    font-size: 2.0rem;
-    text-shadow: 3px 3px 0px #000;
+    font-size: 1.8rem; /* Adjusted for potentially less space with profile info */
+    text-shadow: 2px 2px 0px #000; /* Keep shadow */
     margin: 0;
     text-transform: uppercase;
     text-align: left;
+    color: #fff; /* Ensure title is white */
 }
 
 .site-title-link {
     text-decoration: none;
-    color: inherit; /* Inherit color from header (white) */
+    color: inherit;
 }
-.site-title-link:hover h1 { /* Optional: slight hover effect for title */
-    color: #ffdd44; /* Slightly lighter yellow on hover */
+.site-title-link:hover h1 {
+    color: #ffdd44;
 }
-
 
 #main-nav {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px; /* Slightly reduced gap */
     flex-shrink: 0;
 }
 
-/* General styling for links within main-nav, also applied to specific IDs if needed */
-#main-nav a, #main-nav button { /* Apply to both links and buttons for consistency */
-    color: white;
+#main-nav a, #main-nav button {
+    color: #1a1a2e; /* Dark text for contrast on yellow button */
+    background-color: #ffcc00; /* Yellow background for all nav items */
     text-decoration: none;
-    padding: 10px 15px;
+    padding: 8px 12px; /* Adjusted padding */
     border-radius: 5px;
-    border: 2px solid #000;
+    border: 1px solid #1a1a2e; /* Dark border for definition */
     font-weight: bold;
     text-transform: uppercase;
-    font-size: 1rem;
-    box-shadow: 2px 2px 0px #000;
+    font-size: 0.9rem; /* Adjusted font size */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    display: inline-block; /* Ensure correct padding and border display */
-    line-height: 1; /* Ensure text is vertically centered for <a> tags */
+    display: inline-block;
+    line-height: 1.2; /* Adjusted line height */
 }
 
 #main-nav a:hover, #main-nav button:hover {
+    background-color: #e6b800; /* Darker yellow */
     transform: translateY(-2px);
-    box-shadow: 4px 4px 0px #000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+    color: #000; /* Ensure text color remains dark on hover */
 }
 
-/* Specific background colors for each nav item */
-#nav-search-link {
-    background-color: #007bff; /* Blue for search */
-}
-#nav-search-link:hover {
-    background-color: #0056b3; /* Darker blue */
-}
-
-#nav-about-loggedin {
-    background-color: #17a2b8; /* Info blue/teal */
-}
-#nav-about-loggedin:hover {
-    background-color: #117a8b;
-}
-
-#nav-contact-loggedin {
-    background-color: #28a745; /* Green for contact */
-}
-#nav-contact-loggedin:hover {
-    background-color: #1e7e34;
-}
-
+/* Keep logout button distinct if desired, or remove to make it uniform */
 #logout-button {
-    background-color: #f44336; /* Red */
-    cursor: pointer; /* Ensure button has cursor pointer */
+    background-color: #c82333; /* Darker red for distinction */
+    color: white;
+    border-color: #1a1a2e;
 }
 #logout-button:hover {
-    background-color: #d32f2f;
+    background-color: #a71d2a;
+    color: white;
 }
 
 
 main {
     width: 90%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 30px auto; /* Add margin-top as header is sticky */
     padding: 20px;
-    background-color: rgba(0,0,0,0.5);
+    background-color: transparent; /* Let body background show */
     border-radius: 10px;
+    /* box-shadow: 0 0 15px rgba(255,204,0,0.1); Optional subtle glow for main area */
 }
 
-main h2 {
+main h2 { /* Section titles like "Meus Colecionáveis" */
     text-align: center;
     margin-top: 20px;
-    margin-bottom: 20px;
-    font-size: 2rem;
+    margin-bottom: 30px; /* Increased margin */
+    font-size: 2.2rem; /* Larger */
     color: #ffcc00;
     text-transform: uppercase;
-    text-shadow: 2px 2px 0px #000;
+    text-shadow: 2px 2px 2px #000; /* Keep shadow */
 }
 
 .collection-grid {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 25px; /* Increased gap */
     justify-content: center;
     margin-bottom: 40px;
 }
 
 .collectible-item {
-    background-color: #f9f9f9;
-    border: 3px solid #333;
+    background-color: #2a2a3e; /* Dark card background from public gallery */
+    border: 2px solid #ffcc00; /* Thematic yellow border */
     border-radius: 8px;
     padding: 15px;
-    width: calc(33.333% - 20px);
+    width: calc(33.333% - 25px); /* Adjust for new gap */
     min-width: 250px;
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
-    color: #333;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4); /* Dark theme shadow */
+    color: #e0e0e0; /* Light text for card content */
     display: flex;
     flex-direction: column;
-    position: relative; /* For z-index on hover */
+    position: relative;
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 .collectible-item:hover {
     transform: scale(1.05) translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 6px 10px rgba(0,0,0,0.20); /* Enhanced shadow */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255,204,0,0.25); /* Shadow from public gallery */
     z-index: 10;
 }
 
 .collectible-item img {
     max-width: 100%;
-    height: 200px;
+    height: 220px; /* Consistent height */
     object-fit: cover;
     display: block;
-    margin-bottom: 10px;
-    border: 2px solid #ccc;
+    margin-bottom: 12px;
     border-radius: 4px;
+    border: 1px solid #444; /* Subtle border for image */
 }
 
 .collectible-item h3 {
-    font-size: 1.2rem;
-    color: #d00000;
-    margin-bottom: 8px;
+    font-size: 1.2em; /* Match public gallery */
+    color: #ffcc00; /* Thematic yellow */
+    margin-bottom: 10px;
     text-align: center;
 }
 
 .collectible-item p {
-    font-size: 0.9rem;
-    line-height: 1.4;
-    margin-bottom: 5px;
+    font-size: 0.9em;
+    line-height: 1.5; /* Match public gallery */
+    margin-bottom: 8px; /* Increased margin */
     flex-grow: 1;
 }
 
@@ -222,86 +210,111 @@ main h2 {
 .collectible-item button.delete-btn {
     padding: 8px 12px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px; /* Match nav buttons */
     cursor: pointer;
     font-size: 0.9em;
     font-weight: bold;
     flex-grow: 1;
-    transition: background-color 0.2s ease, transform 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease, color 0.2s ease;
+    text-transform: uppercase;
 }
 
 .collectible-item .edit-btn {
-    background-color: #ffc107;
-    color: black;
+    background-color: #ffcc00;
+    color: #1a1a2e; /* Dark text */
 }
 .collectible-item .edit-btn:hover {
-    background-color: #e0a800;
+    background-color: #e6b800;
     transform: translateY(-1px);
 }
 
 .collectible-item .delete-btn {
-    background-color: #dc3545;
+    background-color: #e74c3c; /* Consistent red */
     color: white;
 }
 .collectible-item .delete-btn:hover {
-    background-color: #c82333;
+    background-color: #c0392b; /* Darker red */
     transform: translateY(-1px);
 }
 
 
 /* Upload Section Styles */
 #upload-section {
-    padding: 20px;
+    padding: 25px; /* Increased padding */
     margin-top: 30px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(0, 0, 0, 0.3); /* Darker, more subtle */
     border-radius: 8px;
-    border: 2px dashed #ffcc00;
+    border: 1px solid #444; /* Subtle border */
 }
 
-#upload-section h2 {
+#upload-section h2 { /* Already themed by main h2, but can override if needed */
     margin-top: 0;
+    margin-bottom: 25px; /* More space */
 }
 
 #edit-mode-indicator {
-    color: #007bff;
+    color: #00aeff; /* Brighter blue for dark theme */
     text-align: center;
     font-weight: bold;
-    margin-bottom: 15px;
-    padding: 8px;
-    background-color: rgba(0, 123, 255, 0.1);
-    border: 1px dashed #007bff;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: rgba(0, 174, 255, 0.1);
+    border: 1px dashed #00aeff;
     border-radius: 4px;
+}
+
+.form-group-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between checkbox and label */
+    /* margin-bottom will be handled by #upload-form gap or direct div margin in #upload-form */
+    /* Or, if it's not a direct child of #upload-form with gap: */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.form-group-checkbox input[type="checkbox"] {
+    width: auto;
+    height: auto;
+    margin-right: 0; /* Gap handles spacing */
+    accent-color: #ffcc00; /* Thematic color for the checkbox itself */
+}
+.form-group-checkbox label {
+    margin-bottom: 0;
+    font-weight: normal;
+    color: #e0e0e0;
+    font-size: 0.95em; /* Slightly smaller label for checkbox */
+    text-shadow: none; /* Usually not needed for checkbox labels */
 }
 
 
 #upload-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 18px; /* Increased gap */
 }
 
-#upload-form div {
-    margin-bottom: 5px;
+#upload-form div { /* This targets the div wrappers around label/input pairs */
+    margin-bottom: 0; /* Gap in form now handles this */
     width: 100%;
 }
 
 #upload-form label {
     display: block;
-    margin-bottom: 5px;
-    font-size: 1.1rem;
-    color: #fff;
-    text-shadow: 1px 1px 2px #000;
+    margin-bottom: 6px; /* Consistent spacing */
+    font-size: 1.05em; /* Slightly adjusted */
+    color: #e0e0e0; /* Light text */
+    text-shadow: none; /* Remove text shadow for cleaner look on dark */
     text-align: left;
 }
 
 #upload-form input[type="text"],
 #upload-form input[type="file"] {
     width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-    color: #333;
+    padding: 12px; /* More padding */
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #2a2a3e;
+    color: #fff;
     box-sizing: border-box;
 }
 
@@ -309,125 +322,111 @@ main h2 {
 #upload-form input[type="file"]:focus {
     border-color: #ffcc00;
     outline: none;
-    box-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.3);
 }
-
 
 #image-preview {
     display: none;
-    max-width: 200px;
-    max-height: 200px;
-    border: 3px solid #ffcc00;
+    max-width: 180px; /* Slightly smaller */
+    max-height: 180px;
+    border: 2px dashed #ffcc00; /* Dashed border for preview */
     border-radius: 4px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 10px auto; /* Center with auto for horizontal */
     object-fit: cover;
-    align-self: center;
+    /* align-self: center; -- Not needed if margin:auto is used in flex column */
 }
 
 #upload-form .message {
-    margin-top: 5px;
+    margin-top: 10px; /* Adjusted spacing */
     margin-bottom: 10px;
-    font-size: 0.9em;
+    font-size: 0.95em; /* Slightly adjusted */
     font-weight: bold;
     min-height: 1em;
     text-align: center;
     width: 100%;
+    padding: 10px;
+    border-radius: 4px;
 }
 #upload-form .message.success {
-    color: #008000;
-    background-color: #e6ffe6;
-    border: 1px solid #008000;
-    padding: 10px;
-    border-radius: 4px;
+    color: #d4edda;
+    background-color: rgba(40, 167, 69, 0.2); /* Semi-transparent green */
+    border: 1px solid rgba(40, 167, 69, 0.6);
 }
 #upload-form .message.error {
-    color: #D8000C;
-    background-color: #FFD2D2;
-    border: 1px solid #D8000C;
-    padding: 10px;
-    border-radius: 4px;
+    color: #f8d7da;
+    background-color: rgba(220, 53, 69, 0.2); /* Semi-transparent red */
+    border: 1px solid rgba(220, 53, 69, 0.6);
 }
 
 
 #upload-form button[type="submit"] {
     background-color: #ffcc00;
-    color: #333;
-    border: 2px solid #000;
+    color: #1a1a2e;
+    border: 1px solid #1a1a2e; /* Match nav button border */
     padding: 12px 20px;
     font-size: 1.1rem;
     font-weight: bold;
     text-transform: uppercase;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease;
     width: 100%;
     margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 #upload-form button[type="submit"]:hover {
     background-color: #e6b800;
+    color: #000;
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
 }
 
 
 /* Responsive adjustments */
 @media (max-width: 992px) {
     .collectible-item {
-        width: calc(50% - 20px);
+        width: calc(50% - 20px); /* Keep 20px gap in mind */
     }
 }
 
 @media (max-width: 768px) {
     body {
-        padding-top: 10px;
+        padding-top: 0; /* Header is sticky, no body padding needed */
     }
     header {
-        padding: 15px;
-        flex-direction: column;
+        padding: 10px 15px; /* Reduced padding */
         gap: 10px;
     }
     .header-left-content {
-        flex-direction: column;
         gap: 10px;
-        align-items: center;
-        width: 100%;
-    }
-    #user-profile-header-info {
-        margin-right: 0;
-        order: -1;
     }
     header h1 {
-        font-size: 1.8rem;
-        text-align: center;
+        font-size: 1.5rem; /* Further reduce for very small mobile */
     }
     #main-nav {
-        flex-direction: column;
-        width: 100%;
-        gap: 10px;
-        margin-top: 10px;
+        gap: 8px; /* Reduce gap in nav for mobile */
+        margin-top: 0; /* Remove margin when header is column */
     }
     #main-nav a,
-    #main-nav button { /* Apply to all items in main-nav for responsive stacking */
-        width: 90%;
-        max-width: 300px;
-        margin-left: auto; /* Use auto margins for centering */
-        margin-right: auto;
-        text-align: center;
+    #main-nav button {
+        width: 100%; /* Full width when stacked */
+        padding: 8px 10px; /* Adjust padding for stacked */
+        font-size: 0.9rem;
     }
     main h2 {
         font-size: 1.8rem;
     }
     .collectible-item {
-        width: calc(100% - 20px);
+        width: calc(100% - 20px); /* Full width minus gap */
         min-width: unset;
-    }
-    .collectible-item-actions {
-        flex-direction: row;
     }
 }
 
 @media (max-width: 480px) {
+    header h1 {
+        font-size: 1.3rem;
+    }
     .collectible-item-actions {
         flex-direction: column;
     }

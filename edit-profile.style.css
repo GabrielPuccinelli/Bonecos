@@ -1,23 +1,23 @@
 /* Styles for edit-profile.html */
 
 body {
-    /* Assuming general body styles like background and font are inherited from style.css */
-    /* Add any specific body overrides if needed */
+    /* Body styles are inherited from style.css (linked first in edit-profile.html) */
 }
 
 .edit-profile-container {
-    max-width: 700px; /* Max width for the content area */
-    margin: 30px auto; /* Centered with space from header/footer */
-    padding: 25px;
-    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay than dashboard main for focus */
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px; /* Increased padding slightly */
+    background-color: rgba(0, 0, 0, 0.35); /* Consistent with #upload-section from style.css if it uses a similar overlay */
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    color: #fff; /* Default text color for this container */
+    color: #fff;
+    border: 1px solid #444; /* Subtle border, consistent with dark theme panels */
 }
 
 .edit-profile-container h1 {
     text-align: center;
-    color: #ffcc00; /* Thematic yellow */
+    color: #ffcc00;
     font-size: 2.2em;
     margin-bottom: 30px;
     text-shadow: 2px 2px 2px #000;
@@ -25,7 +25,7 @@ body {
 
 .edit-profile-container h2 {
     font-size: 1.6em;
-    color: #f0f0f0; /* Light text for section titles */
+    color: #e0e0e0; /* Consistent light text */
     margin-top: 20px;
     margin-bottom: 20px;
     border-bottom: 1px solid #ffcc00;
@@ -33,44 +33,45 @@ body {
 }
 
 .form-group {
-    margin-bottom: 20px; /* Consistent spacing for form groups */
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #e0e0e0; /* Light text for labels */
+    color: #e0e0e0;
 }
 
 .form-group input[type="password"],
 .form-group input[type="file"] {
     width: 100%;
     padding: 12px;
-    border-radius: 4px;
-    border: 1px solid #555; /* Darker border for inputs */
-    background-color: #333; /* Dark input background */
-    color: #fff; /* White text in input */
+    border-radius: 5px; /* Match other inputs */
+    border: 1px solid #555;
+    background-color: #2a2a3e; /* Consistent dark input from style.css */
+    color: #fff;
     font-size: 1em;
     box-sizing: border-box;
 }
 .form-group input[type="file"] {
-    padding: 10px; /* Adjust for file input if needed */
+    padding: 10px; /* File inputs often look better with slightly less vertical padding */
+    background-color: #3a3a4e; /* Can be slightly different for file input button area */
 }
 
 
 .form-group input[type="password"]:focus,
 .form-group input[type="file"]:focus {
     outline: none;
-    border-color: #ffcc00; /* Thematic yellow focus */
-    box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.4); /* Consistent focus glow */
 }
 
 .profile-image-preview-container {
-    text-align: center; /* Center the preview images and text */
+    text-align: center;
     margin-bottom: 20px;
     padding: 15px;
-    background-color: rgba(255,255,255,0.05);
+    background-color: rgba(255,255,255,0.03); /* Very subtle background */
     border-radius: 5px;
 }
 
@@ -81,30 +82,33 @@ body {
 }
 
 .profile-image-preview-container img {
-    border: 2px dashed #ffcc00; /* Thematic border for previews */
-    background-color: rgba(0,0,0,0.2); /* Slight background if image is transparent */
+    border: 2px dashed #ffcc00;
+    background-color: rgba(0,0,0,0.2);
 }
 
 
-button[type="submit"] { /* General submit button style for this page */
-    background-color: #ffcc00; /* Thematic yellow */
-    color: #333; /* Dark text */
-    border: 2px solid #000; /* Consistent with dashboard buttons */
+button[type="submit"] {
+    background-color: #ffcc00;
+    color: #1a1a2e; /* Dark text for contrast, consistent with style.css buttons */
+    border: 1px solid #1a1a2e; /* Consistent with style.css buttons */
     padding: 12px 20px;
     font-size: 1.1em;
     font-weight: bold;
     text-transform: uppercase;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    display: block; /* Make button block to allow margin auto for centering if needed */
-    width: 100%; /* Full width button */
-    margin-top: 10px; /* Space above button if it's the last element in form */
+    transition: background-color 0.3s ease, transform 0.2s ease, color 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Consistent shadow */
 }
 
 button[type="submit"]:hover {
-    background-color: #e6b800; /* Darker yellow */
+    background-color: #e6b800;
+    color: #000; /* Ensure text remains dark */
     transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4); /* Consistent hover shadow */
 }
 
 .feedback-message {
@@ -116,25 +120,26 @@ button[type="submit"]:hover {
     font-weight: bold;
 }
 
+/* Aligned with style.css feedback messages */
 .feedback-message.success {
-    background-color: #28a745; /* Green background */
-    color: #fff; /* White text */
-    border: 1px solid #1e7e34;
+    color: #d4edda;
+    background-color: rgba(40, 167, 69, 0.2); /* Semi-transparent green */
+    border: 1px solid rgba(40, 167, 69, 0.6);
 }
 
 .feedback-message.error {
-    background-color: #dc3545; /* Red background */
-    color: #fff; /* White text */
-    border: 1px solid #c82333;
+    color: #f8d7da;
+    background-color: rgba(220, 53, 69, 0.2); /* Semi-transparent red */
+    border: 1px solid rgba(220, 53, 69, 0.6);
 }
 
 .section-divider {
     margin: 40px 0;
     border: 0;
-    border-top: 1px dashed #555; /* Dashed divider between sections */
+    border-top: 1px dashed #555;
 }
 
-/* Responsive adjustments for edit profile page if needed */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .edit-profile-container {
         margin: 20px auto;

@@ -7,56 +7,72 @@
     <link rel="stylesheet" href="public-gallery.style.css">
 </head>
 <body>
-    <header id="main-header-public">
-        <div class="logo-container">
-            <a href="index.html" id="logo-text">PortalColecionaveis</a> <!-- Changed to index.html -->
+    <aside id="user-sidebar" style="display: none;"> <!-- Initially hidden -->
+        <div class="sidebar-profile-info">
+            <img id="sidebar-profile-image" src="https://via.placeholder.com/80x80.png?text=Perfil" alt="Imagem de Perfil">
+            <h3 id="sidebar-username">[Nome do Usuário]</h3>
         </div>
-
-        <!-- User profile info placeholder for logged-in state -->
-        <div id="user-profile-header-info-public" style="display: none; align-items: center; gap: 10px; margin-left: 15px; order: 1;">
-            <img id="public-header-profile-image" src="#" alt="Perfil" style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #fff;">
-            <span id="public-header-username" style="color: white; font-weight: bold;"></span>
+        <div class="sidebar-stats">
+            <p>Bonecos Cadastrados: <span id="sidebar-collectible-count">0</span></p>
         </div>
-
-        <nav id="public-nav" style="order: 2;"> <!-- Ensure nav is ordered after potential user info -->
-            <a href="search.html" id="nav-search-public-link">Buscar</a>
-            <a href="about.html" id="nav-about-link">Sobre Nós</a>
-            <a href="contact.html" id="nav-contact-link">Contato</a>
-            <a href="register.html" id="nav-register-link">Cadastre-se</a>
-            <a href="login.html" id="nav-login-link">Login</a>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="sidebar-button">Adicionar/Gerenciar Bonecos</a>
+            <a href="edit-profile.html" class="sidebar-button">Editar Perfil</a>
+            <!-- Logout will be handled by the main header's logout button, which will be updated by JS -->
         </nav>
-        <button id="mobile-menu-toggle" aria-label="Abrir menu" style="order: 3;">☰</button>
-    </header>
+    </aside>
 
-    <section id="hero-section">
-        <div class="hero-content">
-            <h1>Bem-vindo ao Universo dos Colecionáveis!</h1>
-            <p>Explore coleções incríveis de fãs como você.</p>
-        </div>
-    </section>
-
-    <section id="inline-search-section" class="search-container-public-home">
-        <form id="public-inline-search-form">
-            <input type="text" id="public-inline-search-query" name="query" placeholder="Buscar por nome do boneco, filme/série ou usuário..." required>
-            <button type="submit">Buscar</button>
-        </form>
-    </section>
-
-    <main>
-        <section id="global-gallery-section">
-            <h2>Galeria Global de Colecionáveis</h2>
-            <div id="global-collection-grid" class="collection-grid">
-                <!-- All collectibles will be populated here by JS -->
+    <div id="page-content-wrapper">
+        <header id="main-header-public">
+            <div class="logo-container">
+                <a href="index.html" id="logo-text">PortalColecionaveis</a>
             </div>
-            <div id="pagination-controls">
-                <!-- Pagination buttons will be populated here by JS -->
+
+            <div id="user-profile-header-info-public" style="display: none; align-items: center; gap: 10px; margin-left: 15px; order: 1;">
+                <img id="public-header-profile-image" src="#" alt="Perfil" style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #fff;">
+                <span id="public-header-username" style="color: white; font-weight: bold;"></span>
+            </div>
+
+            <nav id="public-nav" style="order: 2;">
+                <a href="search.html" id="nav-search-public-link">Buscar</a>
+                <a href="about.html" id="nav-about-link">Sobre Nós</a>
+                <a href="contact.html" id="nav-contact-link">Contato</a>
+                <a href="register.html" id="nav-register-link">Cadastre-se</a>
+                <a href="login.html" id="nav-login-link">Login</a>
+            </nav>
+            <button id="mobile-menu-toggle" aria-label="Abrir menu" style="order: 3;">☰</button>
+        </header>
+
+        <section id="hero-section">
+            <div class="hero-content">
+                <h1>Bem-vindo ao Universo dos Colecionáveis!</h1>
+                <p>Explore coleções incríveis de fãs como você.</p>
             </div>
         </section>
-    </main>
 
-    <footer>
-        <p>&copy; 2023 Portal de Colecionáveis. Todos os direitos reservados.</p>
-    </footer>
+        <section id="inline-search-section" class="search-container-public-home">
+            <form id="public-inline-search-form">
+                <input type="text" id="public-inline-search-query" name="query" placeholder="Buscar por nome do boneco, filme/série ou usuário..." required>
+                <button type="submit">Buscar</button>
+            </form>
+        </section>
+
+        <main>
+            <section id="global-gallery-section">
+                <h2>Galeria Global de Colecionáveis</h2>
+                <div id="global-collection-grid" class="collection-grid">
+                    <!-- All collectibles will be populated here by JS -->
+                </div>
+                <div id="pagination-controls">
+                    <!-- Pagination buttons will be populated here by JS -->
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Portal de Colecionáveis. Todos os direitos reservados.</p>
+        </footer>
+    </div> <!-- End of page-content-wrapper -->
 
     <script src="public-gallery.script.js"></script>
 </body>

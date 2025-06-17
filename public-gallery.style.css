@@ -14,26 +14,107 @@ body {
     background-color: #1a1a2e;
     color: #e0e0e0;
     line-height: 1.6;
+    display: flex; /* Changed for sidebar layout */
+    /* flex-direction: column; -- Removed, will be row for sidebar + content */
+}
+
+/* Sidebar Styling */
+#user-sidebar {
+    position: fixed; /* Or absolute if body is relative and not scrolling */
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #111827; /* Darker sidebar background */
+    padding: 25px 15px; /* Adjusted padding */
+    box-shadow: 2px 0 8px rgba(0,0,0,0.6);
+    z-index: 1001; /* Above sticky header if header's z-index is 1000 */
+    color: #e0e0e0;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    border-right: 1px solid #ffcc00;
+    overflow-y: auto; /* Allow sidebar to scroll if content overflows */
 }
+
+.sidebar-profile-info {
+    text-align: center;
+    margin-bottom: 25px;
+}
+#sidebar-profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #ffcc00;
+    margin-bottom: 12px;
+    object-fit: cover;
+}
+#sidebar-username {
+    font-size: 1.3em; /* Larger username */
+    font-weight: bold;
+    color: #ffcc00;
+}
+.sidebar-stats p {
+    margin-bottom: 20px;
+    font-size: 0.95em; /* Slightly larger */
+    color: #ccc;
+}
+.sidebar-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Space between buttons */
+}
+.sidebar-button {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-size: 0.95em;
+}
+.sidebar-button:hover {
+    background-color: #e6b800;
+    transform: translateY(-1px);
+}
+
+/* Page Content Wrapper - for shifting content when sidebar is active */
+#page-content-wrapper {
+    flex-grow: 1; /* Takes remaining space */
+    margin-left: 0; /* Default when sidebar is hidden or on small screens */
+    transition: margin-left 0.3s ease;
+    display: flex;
+    flex-direction: column; /* Ensure footer is pushed down */
+    min-height: 100vh; /* Ensure wrapper takes full height */
+}
+#page-content-wrapper.sidebar-active {
+    margin-left: 250px; /* Same as sidebar width */
+}
+
 
 /* Header Styling */
 #main-header-public {
     background-color: rgba(0, 0, 0, 0.8);
     padding: 15px 20px;
     display: flex;
-    /* justify-content: space-between; -- Removed for natural flow */
     align-items: center;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    /* z-index: 1000; -- Sidebar is 1001, header can be 1000 or less if sidebar overlaps.
+                       If header is part of page-content-wrapper, its z-index is relative to that. */
+    z-index: 999; /* If sidebar is fixed and header is part of scrollable content */
     border-bottom: 2px solid #ffcc00;
     gap: 15px;
+    width: 100%; /* Ensure header takes full width of its container */
 }
-
+/* ... rest of existing styles from #main-header-public down to footer ... */
 .logo-container {
-    flex-shrink: 0; /* Prevent logo from shrinking */
+    flex-shrink: 0;
 }
 
 .logo-container #logo-text {
@@ -45,11 +126,8 @@ body {
     letter-spacing: 1px;
 }
 
-/* This div will be displayed by JS if user is logged in */
 #user-profile-header-info-public {
-    /* display: none; is set by JS initially or by HTML */
-    /* align-items: center; gap: 10px; are set by inline style */
-    margin-left: auto; /* Pushes this and subsequent nav to the right */
+    margin-left: auto;
     flex-shrink: 0;
 }
 #public-header-profile-image {
@@ -64,7 +142,7 @@ body {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    justify-content: flex-end; /* Aligns items to the end of this container */
+    justify-content: flex-end;
 }
 
 #public-nav a {
@@ -92,7 +170,7 @@ body {
     border: none;
     font-size: 2em;
     cursor: pointer;
-    margin-left: 10px; /* Give it some space if nav is short */
+    margin-left: 10px;
 }
 
 /* Hero Section Styling */
@@ -139,44 +217,43 @@ body {
 
 /* Inline Search Section Styling */
 #inline-search-section {
-    padding: 25px 20px; /* More padding */
-    background-color: rgba(0,0,0,0.25); /* Darker, subtle overlay */
+    padding: 25px 20px;
+    background-color: rgba(0,0,0,0.25);
     text-align: center;
-    border-bottom: 1px solid #444; /* Separator line */
-    /* margin-bottom: 30px; -- Removed, main has margin-top */
+    border-bottom: 1px solid #444;
 }
 
 #public-inline-search-form {
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 650px; /* Slightly wider search bar */
+    max-width: 650px;
     margin: 0 auto;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Add shadow to form */
-    border-radius: 5px; /* Rounded corners for the whole form */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border-radius: 5px;
 }
 
 #public-inline-search-form input[type="text"] {
     flex-grow: 1;
-    padding: 12px 18px; /* More padding */
-    font-size: 1.05em; /* Slightly larger font */
-    border: 2px solid #555; /* Darker border */
+    padding: 12px 18px;
+    font-size: 1.05em;
+    border: 2px solid #555;
     border-radius: 5px 0 0 5px;
     outline: none;
-    background-color: #fff; /* White background for input */
-    color: #333; /* Dark text for input */
+    background-color: #fff;
+    color: #333;
 }
 #public-inline-search-form input[type="text"]:focus {
-    border-color: #ffcc00; /* Thematic highlight */
+    border-color: #ffcc00;
     box-shadow: 0 0 8px rgba(255,204,0,0.4);
 }
 
 #public-inline-search-form button[type="submit"] {
-    padding: 12px 25px; /* More padding */
-    font-size: 1.05em; /* Match input */
-    background-color: #ffcc00; /* Thematic button color */
-    color: #1a1a2e; /* Dark text */
-    border: 2px solid #ffcc00; /* Match background */
+    padding: 12px 25px;
+    font-size: 1.05em;
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    border: 2px solid #ffcc00;
     border-left: none;
     border-radius: 0 5px 5px 0;
     cursor: pointer;
@@ -185,13 +262,13 @@ body {
     transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 #public-inline-search-form button[type="submit"]:hover {
-    background-color: #e6b800; /* Darker yellow */
+    background-color: #e6b800;
     border-color: #e6b800;
 }
 
 
 /* Main Content Area */
-main {
+main { /* This main is inside page-content-wrapper */
     flex-grow: 1;
     width: 100%;
     max-width: 1200px;
@@ -225,14 +302,14 @@ main {
     color: #e0e0e0;
     display: flex;
     flex-direction: column;
-    position: relative; /* For z-index */
+    position: relative;
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 .collectible-item:hover {
-    transform: scale(1.05) translateY(-5px); /* Slight lift and scale */
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 223, 0, 0.25); /* Darker shadow + gold glow */
-    z-index: 10; /* Ensure it comes above neighbors */
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 223, 0, 0.25);
+    z-index: 10;
 }
 
 .collectible-item img {
@@ -263,6 +340,20 @@ main {
     margin-top: auto;
     padding-top: 5px;
     text-align: right;
+}
+
+.collectible-item .for-trade-indicator {
+    background-color: #ffcc00; /* Thematic yellow */
+    color: #1a1a2e; /* Dark text */
+    font-size: 0.75em;
+    padding: 3px 8px; /* Adjusted padding */
+    border-radius: 3px;
+    text-align: center;
+    margin-top: 8px; /* Space from other content */
+    font-weight: bold;
+    align-self: flex-start; /* Align to the start of the cross axis (if item is flex column) */
+    /* Or use align-self: center; if preferred */
+    max-width: fit-content; /* Take only needed width */
 }
 
 
@@ -313,30 +404,44 @@ footer {
     color: #ccc;
     text-align: center;
     padding: 20px 0;
-    margin-top: auto;
+    margin-top: auto; /* This works because #page-content-wrapper is flex column */
     border-top: 1px solid #444;
+    width: 100%; /* Ensure footer takes full width of its container */
 }
 
 /* Responsive Adjustments */
-@media (max-width: 880px) {
-    /* No change needed here for now, flex-wrap on nav will handle some cases */
+@media (max-width: 992px) {
+    #user-sidebar {
+        width: 200px;
+    }
+    #page-content-wrapper.sidebar-active {
+        margin-left: 200px;
+    }
 }
 
 
 @media (max-width: 768px) {
+    #user-sidebar {
+         display: none !important; /* Hide on very small screens */
+    }
+    #page-content-wrapper.sidebar-active {
+        margin-left: 0; /* No margin when sidebar is hidden */
+    }
+    /* The top header's mobile menu (#mobile-menu-toggle) would be the primary nav */
+
     #main-header-public {
         flex-direction: column;
         padding: 10px;
     }
     .logo-container {
         margin-bottom: 10px;
-        text-align: center; /* Center logo when header is column */
+        text-align: center;
         width: 100%;
     }
     #user-profile-header-info-public {
         margin-left: 0;
         margin-bottom: 10px;
-        order: -1; /* Display user info first on mobile */
+        order: -1;
         width: 100%;
         justify-content: center;
     }
@@ -344,7 +449,7 @@ footer {
         flex-direction: column;
         width: 100%;
         display: none;
-        order: initial; /* Reset order from HTML for column flow */
+        order: initial;
     }
     #public-nav.active {
         display: flex;
@@ -362,7 +467,7 @@ footer {
         position: absolute;
         top: 15px;
         right: 20px;
-        order: initial; /* Reset order */
+        order: initial;
     }
 
     .hero-content h1 { font-size: 2em; }
@@ -376,24 +481,24 @@ footer {
         padding: 20px 15px;
     }
     #public-inline-search-form {
-        flex-direction: column; /* Stack input and button */
+        flex-direction: column;
         gap: 10px;
-        box-shadow: none; /* Remove shadow when stacked */
+        box-shadow: none;
     }
     #public-inline-search-form input[type="text"],
     #public-inline-search-form button[type="submit"] {
-        width: 100%; /* Full width for stacked elements */
-        border-radius: 5px; /* Full rounded corners for both */
-        border-left: 2px solid #555; /* Restore left border for input */
+        width: 100%;
+        border-radius: 5px;
+        border-left: 2px solid #555;
     }
     #public-inline-search-form input[type="text"]:focus {
-        border-color: #ffcc00; /* Keep focus consistent */
+        border-color: #ffcc00;
     }
     #public-inline-search-form button[type="submit"] {
-         border-left: 2px solid #ffcc00; /* Restore border for button */
+         border-left: 2px solid #ffcc00;
     }
      #public-inline-search-form button[type="submit"]:hover {
-        border-left: 2px solid #e6b800; /* Match hover border color */
+        border-left: 2px solid #e6b800;
     }
 }
 

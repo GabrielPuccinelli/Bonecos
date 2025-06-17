@@ -40,10 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 sessionStorage.setItem('currentUser', foundUser.username); // Store current user's name
 
                 console.log('Login successful for user:', foundUser.username);
-                window.location.href = 'index.html';
+                window.location.href = 'public-gallery.html'; // Changed redirect
             } else {
                 // Authentication failed - incorrect credentials or user not found
-                loginErrorMessage.textContent = 'Usuário ou senha inválidos. Tente novamente.';
+                loginErrorMessage.innerHTML = 'Usuário ou senha inválidos. Tente novamente. <br><a href="index.html" class="home-link-error">Voltar à Página Inicial</a>';
                 loginErrorMessage.style.display = 'block';
                 if (passwordInput) passwordInput.value = ""; // Clear password field for security/usability
                 if (usernameInput) usernameInput.focus(); // Set focus back to username field

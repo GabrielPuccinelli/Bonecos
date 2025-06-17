@@ -72,6 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     itemDiv.appendChild(nameH3);
                     itemDiv.appendChild(sourceP);
                     itemDiv.appendChild(yearP);
+
+                    // Display For Trade indicator if applicable
+                    if (collectible.isForTrade) {
+                        const forTradeIndicator = document.createElement('div');
+                        forTradeIndicator.classList.add('for-trade-indicator');
+                        forTradeIndicator.textContent = 'Negociável'; // Consistent with dashboard
+                        itemDiv.appendChild(forTradeIndicator);
+                    }
+
                     profileCollectionGrid.insertBefore(itemDiv, noResultsMessage); // Insert before the message
                 });
             } else {

@@ -120,3 +120,15 @@ body {
     text-decoration: underline;
     color: #ffe066; /* Lighter yellow on hover */
 }
+
+.login-container .error-message a.home-link-error {
+    color: #ffdd77; /* Lighter yellow/gold to stand out on error message background */
+    text-decoration: underline;
+    font-weight: normal;
+    display: inline-block;
+    margin-top: 8px; /* Space from the error text */
+    font-size: 0.9em; /* Match error message font size */
+}
+.login-container .error-message a.home-link-error:hover {
+    color: #fff; /* Brighter white on hover */
+}

@@ -4,14 +4,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
     const publicNav = document.getElementById('public-nav');
 
-    // For header updates
+    // Header updates
     const userProfileHeaderInfoPublic = document.getElementById('user-profile-header-info-public');
     const publicHeaderProfileImage = document.getElementById('public-header-profile-image');
     const publicHeaderUsername = document.getElementById('public-header-username');
 
-    // For inline search
+    // Inline search
     const inlineSearchForm = document.getElementById('public-inline-search-form');
     const inlineSearchQueryInput = document.getElementById('public-inline-search-query');
+
+    // Sidebar elements
+    const userSidebar = document.getElementById('user-sidebar');
+    const sidebarProfileImage = document.getElementById('sidebar-profile-image');
+    const sidebarUsername = document.getElementById('sidebar-username');
+    const sidebarCollectibleCount = document.getElementById('sidebar-collectible-count');
+    const pageContentWrapper = document.getElementById('page-content-wrapper');
 
 
     let allCollectibles = [];
@@ -33,9 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderGalleryPage(pageNumber) {
         currentPage = pageNumber;
-        if(globalCollectionGrid) globalCollectionGrid.innerHTML = ''; // Guard against missing element
-        else { console.error("globalCollectionGrid not found for renderGalleryPage"); return; }
-
+        if(!globalCollectionGrid) { console.error("globalCollectionGrid not found"); return; }
+        globalCollectionGrid.innerHTML = '';
 
         if (allCollectibles.length === 0) {
             globalCollectionGrid.innerHTML = '<p style="text-align:center; color:#ccc; padding: 20px;">Ainda não há nenhum boneco na galeria global. Seja o primeiro a cadastrar!</p>';
@@ -87,10 +93,16 @@ document.addEventListener('DOMContentLoaded', () => {
             itemDiv.appendChild(nameH3);
             itemDiv.appendChild(sourceP);
             itemDiv.appendChild(yearP);
-            itemDiv.appendChild(ownerP);
+            // Display For Trade indicator if applicable
+            if (collectible.isForTrade) {
+                const forTradeIndicator = document.createElement('div');
+                forTradeIndicator.classList.add('for-trade-indicator');
+                forTradeIndicator.textContent = 'Interesse em Negociar';
+                itemDiv.appendChild(forTradeIndicator);
+            }
+            itemDiv.appendChild(ownerP); // Owner info should be last or styled appropriately
             globalCollectionGrid.appendChild(itemDiv);
         });
-
         renderPaginationControls();
     }
 
@@ -135,11 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
         console.warn("Mobile menu toggle or public nav not found.");
     }
 
-    function updateUserSpecificHeader() {
+    function updateUserUI() { // Renamed from updateUserSpecificHeader
         const isLoggedIn = sessionStorage.getItem('loggedIn') === 'true';
 
-        if (!publicNav || !userProfileHeaderInfoPublic || !publicHeaderProfileImage || !publicHeaderUsername) {
-            console.warn("Elementos do header público para atualização não encontrados.");
+        // Guard all elements that might be updated by this function
+        if (!publicNav || !userProfileHeaderInfoPublic || !publicHeaderProfileImage || !publicHeaderUsername || !userSidebar || !sidebarProfileImage || !sidebarUsername || !sidebarCollectibleCount || !pageContentWrapper ) {
+            console.warn("Um ou mais elementos da UI para atualização não foram encontrados.");
             return;
         }
 
@@ -148,16 +161,16 @@ document.addEventListener('DOMContentLoaded', () => {
             let users = JSON.parse(localStorage.getItem('users')) || [];
             let loggedInUser = users.find(user => user.username === currentUsername);
 
+            // Update Top Header Nav
             publicNav.innerHTML = '';
-
             const myGalleryLink = document.createElement('a');
             myGalleryLink.href = 'dashboard.html';
             myGalleryLink.textContent = 'Minha Galeria';
             publicNav.appendChild(myGalleryLink);
 
-            const searchLink = document.createElement('a');
+            const searchLink = document.createElement('a'); // Keep search available
             searchLink.href = 'search.html';
-            searchLink.textContent = 'Buscar'; // This is the main search page link
+            searchLink.textContent = 'Buscar';
             publicNav.appendChild(searchLink);
 
             const aboutLink = document.createElement('a');
@@ -178,11 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.preventDefault();
                 sessionStorage.removeItem('loggedIn');
                 sessionStorage.removeItem('currentUser');
-                updateUserSpecificHeader();
-                window.location.href = 'public-gallery.html';
+                updateUserUI(); // Re-render header to public state & hide sidebar
+                window.location.reload(); // Reload to ensure clean state for public view
             });
             publicNav.appendChild(logoutButton);
 
+            // Update Top Header Profile Info
             if (loggedInUser) {
                 publicHeaderUsername.textContent = loggedInUser.username;
                 if (loggedInUser.profileImageUrl) {
@@ -191,12 +205,29 @@ document.addEventListener('DOMContentLoaded', () => {
                     publicHeaderProfileImage.src = 'https://via.placeholder.com/30x30.png?text=P';
                 }
                 userProfileHeaderInfoPublic.style.display = 'flex';
-            } else {
+
+                // Update and Show Sidebar
+                userSidebar.style.display = 'flex'; // Changed to flex as sidebar is flex column
+                if (pageContentWrapper) pageContentWrapper.classList.add('sidebar-active');
+                sidebarUsername.textContent = loggedInUser.username;
+                sidebarCollectibleCount.textContent = loggedInUser.collectibles ? loggedInUser.collectibles.length : 0;
+                if (loggedInUser.profileImageUrl) {
+                    sidebarProfileImage.src = loggedInUser.profileImageUrl;
+                } else {
+                    sidebarProfileImage.src = 'https://via.placeholder.com/80x80.png?text=Perfil';
+                }
+            } else { // Should ideally not happen if session is managed well
                 userProfileHeaderInfoPublic.style.display = 'none';
+                userSidebar.style.display = 'none';
+                if (pageContentWrapper) pageContentWrapper.classList.remove('sidebar-active');
             }
 
-        } else {
+        } else { // Not logged in
             userProfileHeaderInfoPublic.style.display = 'none';
+            userSidebar.style.display = 'none';
+            if (pageContentWrapper) pageContentWrapper.classList.remove('sidebar-active');
+
+            // Restore public navigation links
             publicNav.innerHTML = `
                 <a href="search.html" id="nav-search-public-link">Buscar</a>
                 <a href="about.html" id="nav-about-link">Sobre Nós</a>
@@ -222,8 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial Load Logic
     fetchAllCollectibles();
-    if (globalCollectionGrid) { // Only render if grid exists
+    if (globalCollectionGrid) {
         renderGalleryPage(1);
     }
-    updateUserSpecificHeader();
+    updateUserUI();
 });
