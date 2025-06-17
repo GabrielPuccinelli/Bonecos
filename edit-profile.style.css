@@ -1,0 +1,149 @@
+/* Styles for edit-profile.html */
+
+body {
+    /* Assuming general body styles like background and font are inherited from style.css */
+    /* Add any specific body overrides if needed */
+}
+
+.edit-profile-container {
+    max-width: 700px; /* Max width for the content area */
+    margin: 30px auto; /* Centered with space from header/footer */
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.6); /* Slightly darker overlay than dashboard main for focus */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    color: #fff; /* Default text color for this container */
+}
+
+.edit-profile-container h1 {
+    text-align: center;
+    color: #ffcc00; /* Thematic yellow */
+    font-size: 2.2em;
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 2px #000;
+}
+
+.edit-profile-container h2 {
+    font-size: 1.6em;
+    color: #f0f0f0; /* Light text for section titles */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ffcc00;
+    padding-bottom: 8px;
+}
+
+.form-group {
+    margin-bottom: 20px; /* Consistent spacing for form groups */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #e0e0e0; /* Light text for labels */
+}
+
+.form-group input[type="password"],
+.form-group input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    border: 1px solid #555; /* Darker border for inputs */
+    background-color: #333; /* Dark input background */
+    color: #fff; /* White text in input */
+    font-size: 1em;
+    box-sizing: border-box;
+}
+.form-group input[type="file"] {
+    padding: 10px; /* Adjust for file input if needed */
+}
+
+
+.form-group input[type="password"]:focus,
+.form-group input[type="file"]:focus {
+    outline: none;
+    border-color: #ffcc00; /* Thematic yellow focus */
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
+}
+
+.profile-image-preview-container {
+    text-align: center; /* Center the preview images and text */
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 5px;
+}
+
+.profile-image-preview-container p {
+    font-size: 0.9em;
+    color: #ccc;
+    margin-bottom: 5px;
+}
+
+.profile-image-preview-container img {
+    border: 2px dashed #ffcc00; /* Thematic border for previews */
+    background-color: rgba(0,0,0,0.2); /* Slight background if image is transparent */
+}
+
+
+button[type="submit"] { /* General submit button style for this page */
+    background-color: #ffcc00; /* Thematic yellow */
+    color: #333; /* Dark text */
+    border: 2px solid #000; /* Consistent with dashboard buttons */
+    padding: 12px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block; /* Make button block to allow margin auto for centering if needed */
+    width: 100%; /* Full width button */
+    margin-top: 10px; /* Space above button if it's the last element in form */
+}
+
+button[type="submit"]:hover {
+    background-color: #e6b800; /* Darker yellow */
+    transform: translateY(-2px);
+}
+
+.feedback-message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 0.95em;
+    text-align: center;
+    font-weight: bold;
+}
+
+.feedback-message.success {
+    background-color: #28a745; /* Green background */
+    color: #fff; /* White text */
+    border: 1px solid #1e7e34;
+}
+
+.feedback-message.error {
+    background-color: #dc3545; /* Red background */
+    color: #fff; /* White text */
+    border: 1px solid #c82333;
+}
+
+.section-divider {
+    margin: 40px 0;
+    border: 0;
+    border-top: 1px dashed #555; /* Dashed divider between sections */
+}
+
+/* Responsive adjustments for edit profile page if needed */
+@media (max-width: 768px) {
+    .edit-profile-container {
+        margin: 20px auto;
+        padding: 20px;
+    }
+    .edit-profile-container h1 {
+        font-size: 1.8em;
+    }
+    .edit-profile-container h2 {
+        font-size: 1.4em;
+    }
+}

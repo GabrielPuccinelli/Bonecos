@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Perfil - Portal de Colecionáveis</title>
+    <link rel="stylesheet" href="style.css"> <!-- Main dashboard theme styles -->
+    <link rel="stylesheet" href="edit-profile.style.css"> <!-- Page-specific styles -->
+</head>
+<body>
+    <header>
+        <div class="header-left-content">
+            <div id="user-profile-header-info" style="display: none; align-items: center; gap: 10px; margin-right: 15px;">
+                <img id="header-profile-image" src="#" alt="Imagem de Perfil" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff;">
+                <span id="header-username" style="color: white; font-weight: bold;"></span>
+            </div>
+            <a href="index.html" class="site-title-link"><h1>Portal de Colecionáveis Marvel</h1></a>
+        </div>
+        <nav id="main-nav">
+            <a href="search.html" id="nav-search-link">Buscar</a>
+            <a href="about.html" id="nav-about-loggedin">Sobre Nós</a>
+            <a href="contact.html" id="nav-contact-loggedin">Contato</a>
+            <button id="logout-button" type="button">Logout</button>
+        </nav>
+    </header>
+
+    <main class="edit-profile-container">
+        <h1>Editar Perfil</h1>
+
+        <section id="change-password-section">
+            <h2>Alterar Senha</h2>
+            <form id="change-password-form">
+                <div class="form-group">
+                    <label for="current-password">Senha Atual:</label>
+                    <input type="password" id="current-password" name="current-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Nova Senha (mín. 6 caracteres):</label>
+                    <input type="password" id="new-password" name="new-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm-new-password">Confirmar Nova Senha:</label>
+                    <input type="password" id="confirm-new-password" name="confirm-new-password" required>
+                </div>
+                <button type="submit">Alterar Senha</button>
+                <p id="password-feedback" class="feedback-message" style="display:none;"></p>
+            </form>
+        </section>
+
+        <hr class="section-divider">
+
+        <section id="change-profile-image-section">
+            <h2>Alterar Imagem de Perfil</h2>
+            <form id="change-profile-image-form">
+                <div class="form-group">
+                    <label for="edit-profile-image">Nova Imagem de Perfil (Opcional):</label>
+                    <input type="file" id="edit-profile-image" name="edit-profile-image" accept="image/*">
+                </div>
+                <div class="profile-image-preview-container">
+                    <p>Imagem Atual:</p>
+                    <img id="current-profile-image-preview" src="https://via.placeholder.com/150x150.png?text=Atual" alt="Imagem de Perfil Atual" style="max-width: 150px; max-height: 150px; border-radius: 50%;">
+                    <p style="margin-top:10px;">Pré-visualização Nova Imagem:</p>
+                    <img id="new-profile-image-preview" src="#" alt="Pré-visualização Nova Imagem de Perfil" style="max-width: 150px; max-height: 150px; display: none; margin-top: 5px; border-radius: 50%;">
+                </div>
+                <button type="submit">Alterar Imagem de Perfil</button>
+                <p id="image-feedback" class="feedback-message" style="display:none;"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Portal de Colecionáveis. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- script.js for header population and common functionalities (like logout) -->
+    <script src="script.js" defer></script>
+    <!-- edit-profile.script.js for page-specific logic -->
+    <script src="edit-profile.script.js" defer></script>
+</body>
+</html>

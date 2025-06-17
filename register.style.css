@@ -143,3 +143,14 @@ body {
 .register-container p a:hover {
     color: #0056b3;
 }
+
+.register-container .home-link { /* Style for the new home link */
+    color: #007bff;
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 0.9em;
+}
+.register-container .home-link:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}

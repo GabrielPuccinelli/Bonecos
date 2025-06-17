@@ -5,40 +5,56 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sessionStorage.getItem('loggedIn') !== 'true') {
         console.log("User not logged in. Redirecting to login.html");
         window.location.href = 'login.html';
-    } else {
-        const currentUsername = sessionStorage.getItem('currentUser'); // Get current user early
-        console.log("User is logged in. Initializing page content for user:", currentUsername);
+        return; // Stop script execution if not logged in
+    }
 
-        // Header profile display elements
-        const userProfileHeaderInfo = document.getElementById('user-profile-header-info');
-        const headerProfileImage = document.getElementById('header-profile-image');
-        const headerUsernameDisplay = document.getElementById('header-username'); // Corrected ID from 'header-username' to match HTML
+    // Common elements for pages that use this script (dashboard, edit-profile)
+    const currentUsername = sessionStorage.getItem('currentUser');
+    console.log("User is logged in. Initializing page content for user:", currentUsername);
 
-        if (currentUsername && userProfileHeaderInfo && headerProfileImage && headerUsernameDisplay) {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            const loggedInUser = users.find(user => user.username === currentUsername);
+    const userProfileHeaderInfo = document.getElementById('user-profile-header-info');
+    const headerProfileImage = document.getElementById('header-profile-image');
+    const headerUsernameDisplay = document.getElementById('header-username');
+    const logoutButton = document.getElementById('logout-button');
 
-            if (loggedInUser) {
-                headerUsernameDisplay.textContent = loggedInUser.username;
-                if (loggedInUser.profileImageUrl) {
-                    headerProfileImage.src = loggedInUser.profileImageUrl;
-                } else {
-                    headerProfileImage.src = 'https://via.placeholder.com/40x40.png?text=Perfil'; // Default placeholder
-                }
-                userProfileHeaderInfo.style.display = 'flex';
+    if (currentUsername && userProfileHeaderInfo && headerProfileImage && headerUsernameDisplay) {
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const loggedInUser = users.find(user => user.username === currentUsername);
+
+        if (loggedInUser) {
+            headerUsernameDisplay.textContent = loggedInUser.username;
+            if (loggedInUser.profileImageUrl) {
+                headerProfileImage.src = loggedInUser.profileImageUrl;
             } else {
-                 console.warn("Logged in user data not found in localStorage for header display.");
-                 userProfileHeaderInfo.style.display = 'none'; // Hide if user data can't be loaded
+                headerProfileImage.src = 'https://via.placeholder.com/40x40.png?text=Perfil';
             }
+            userProfileHeaderInfo.style.display = 'flex';
         } else {
-            console.warn("Header profile display elements not all found or no current user.");
+            console.warn("Logged in user data not found in localStorage for header display.");
+            if (userProfileHeaderInfo) userProfileHeaderInfo.style.display = 'none';
         }
+    } else {
+        console.warn("Header profile display elements not all found or no current user.");
+    }
 
+    if (logoutButton) {
+        logoutButton.addEventListener('click', () => {
+            sessionStorage.removeItem('loggedIn');
+            sessionStorage.removeItem('currentUser');
+            console.log("User logged out. Redirecting to login.html");
+            window.location.href = 'login.html';
+        });
+    } else {
+        console.warn("Logout button not found. This is expected on pages without it if script is shared.");
+    }
+
+    // --- Dashboard specific elements and functions ---
+    // Guard all dashboard-specific logic
+    if (document.body.contains(document.getElementById('upload-form')) && document.body.contains(document.querySelector('.collection-grid'))) {
 
         const imageUploadInput = document.getElementById('image-upload');
         const imagePreview = document.getElementById('image-preview');
         const uploadForm = document.getElementById('upload-form');
-        const logoutButton = document.getElementById('logout-button');
 
         const collectibleNameInput = document.getElementById('collectible-name');
         const collectibleSourceInput = document.getElementById('collectible-source');
@@ -64,14 +80,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 3000);
                 }
             } else {
-                console.warn("uploadFormMessage element not found. Message:", text, "Type:", type);
+                console.warn("uploadFormMessage element not found for dashboard. Message:", text, "Type:", type);
             }
         }
 
         function resetFormTo謚() {
-            uploadForm.reset();
-            imagePreview.style.display = 'none';
-            imagePreview.src = '#';
+            if (uploadForm) uploadForm.reset();
+            if (imagePreview) {
+                imagePreview.style.display = 'none';
+                imagePreview.src = '#';
+            }
             if(imageUploadInput) imageUploadInput.value = '';
 
             editingCollectibleId = null;
@@ -87,19 +105,19 @@ document.addEventListener('DOMContentLoaded', () => {
             let users = JSON.parse(localStorage.getItem('users')) || [];
             const userIndex = users.findIndex(user => user.username === currentUsername);
 
-            if (userIndex !== -1) {
+            if (userIndex !== -1 && users[userIndex].collectibles) {
                 const collectibleIndex = users[userIndex].collectibles.findIndex(c => c.id === collectibleId);
                 if (collectibleIndex !== -1) {
                     users[userIndex].collectibles.splice(collectibleIndex, 1);
                     localStorage.setItem('users', JSON.stringify(users));
-                    renderUserGallery();
+                    renderUserGallery(); // Must be defined and callable
                     showUploadFormMessage('Boneco deletado com sucesso!', 'success');
                     if(editingCollectibleId === collectibleId) resetFormTo謚();
                 } else {
                     showUploadFormMessage('Erro: Boneco não encontrado para deleção.', 'error');
                 }
             } else {
-                showUploadFormMessage('Erro: Usuário não encontrado.', 'error');
+                showUploadFormMessage('Erro: Usuário ou coleção não encontrados.', 'error');
             }
         }
 
@@ -108,21 +126,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const user = users.find(u => u.username === currentUsername);
             if (user && user.collectibles) {
                 const collectibleToEdit = user.collectibles.find(c => c.id === collectibleId);
-                if (collectibleToEdit) {
+                if (collectibleToEdit && collectibleNameInput && collectibleSourceInput && collectibleYearInput && imagePreview && imageUploadInput && formTitle && submitButton && editModeIndicator && uploadFormMessage) {
                     collectibleNameInput.value = collectibleToEdit.name;
                     collectibleSourceInput.value = collectibleToEdit.source;
                     collectibleYearInput.value = collectibleToEdit.year;
                     imagePreview.src = collectibleToEdit.imageUrl;
                     imagePreview.style.display = 'block';
-                    if(imageUploadInput) imageUploadInput.value = '';
+                    imageUploadInput.value = '';
 
                     editingCollectibleId = collectibleId;
-                    if (formTitle) formTitle.textContent = "Editar Boneco";
-                    if (submitButton) submitButton.textContent = 'Salvar Alterações';
-                    if (editModeIndicator) editModeIndicator.style.display = 'block';
-                    if (uploadFormMessage) uploadFormMessage.style.display = 'none';
+                    formTitle.textContent = "Editar Boneco";
+                    submitButton.textContent = 'Salvar Alterações';
+                    editModeIndicator.style.display = 'block';
+                    uploadFormMessage.style.display = 'none';
 
-                    document.getElementById('upload-section').scrollIntoView({ behavior: 'smooth' });
+                    const uploadSection = document.getElementById('upload-section');
+                    if (uploadSection) uploadSection.scrollIntoView({ behavior: 'smooth' });
                 }
             }
         }
@@ -138,7 +157,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const loggedInUser = users.find(user => user.username === currentUsername);
 
             if (!collectionGrid || !collectibleCountDisplay) {
-                console.error("Elementos da galeria não encontrados.");
+                 // These elements are specific to dashboard.html, so if not found, just return silently.
+                console.log("Gallery or count display not found, skipping renderUserGallery (expected on non-dashboard pages).");
                 return;
             }
             collectionGrid.innerHTML = '';
@@ -149,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const itemDiv = document.createElement('div');
                     itemDiv.classList.add('collectible-item');
                     itemDiv.dataset.collectibleId = collectible.id;
-
+                    // ... (rest of item creation code from previous version) ...
                     const img = document.createElement('img');
                     img.src = collectible.imageUrl;
                     img.alt = collectible.name;
@@ -215,13 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         } else {
-            console.error("Image upload input or preview element not found.");
+             // console.warn("Image upload input or preview element not found (expected on non-dashboard pages).");
         }
 
-        if (uploadForm) {
+        if (uploadForm && collectibleNameInput && collectibleSourceInput && collectibleYearInput && imageUploadInput && showUploadFormMessage && resetFormTo謚 && renderUserGallery) {
             uploadForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-
+                // ... (rest of submit logic from previous version, it's already quite robust) ...
                 const name = collectibleNameInput.value.trim();
                 const source = collectibleSourceInput.value.trim();
                 const year = collectibleYearInput.value.trim();
@@ -287,20 +307,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         } else {
-            console.error("Upload form not found.");
+            // console.warn("Upload form or its core components not found (expected on non-dashboard pages).");
         }
 
-        if (logoutButton) {
-            logoutButton.addEventListener('click', () => {
-                sessionStorage.removeItem('loggedIn');
-                sessionStorage.removeItem('currentUser');
-                console.log("User logged out. Redirecting to login.html");
-                window.location.href = 'login.html';
-            });
-        } else {
-            console.error("Logout button not found.");
+        // Initial render for dashboard.html
+        if (typeof renderUserGallery === "function") { // Check if function is defined (i.e. on dashboard)
+             renderUserGallery();
         }
-
-        renderUserGallery(); // Initial render
-    }
+    } // End of dashboard specific logic guard
 });

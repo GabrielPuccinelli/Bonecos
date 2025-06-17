@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Painel - Portal de Colecionáveis Marvel</title> <!-- Changed title -->
+    <link rel="stylesheet" href="style.css"> <!-- Main styles -->
+</head>
+<body>
+    <header>
+        <div class="header-left-content">
+            <div id="user-profile-header-info" style="display: none; align-items: center; gap: 10px; margin-right: 15px;">
+                <img id="header-profile-image" src="#" alt="Imagem de Perfil" style="width: 40px; height: 40px; border-radius: 50%; border: 2px solid #fff;">
+                <div class="user-details-header">
+                    <span id="header-username" style="color: white; font-weight: bold; display:block;"></span>
+                    <a href="edit-profile.html" id="nav-edit-profile-link">Editar Perfil</a>
+                </div>
+            </div>
+            <a href="index.html" class="site-title-link"><h1>Portal de Colecionáveis Marvel</h1></a>
+        </div>
+        <nav id="main-nav">
+            <a href="search.html" id="nav-search-link">Buscar</a>
+            <a href="about.html" id="nav-about-loggedin">Sobre Nós</a>
+            <a href="contact.html" id="nav-contact-loggedin">Contato</a>
+            <button id="logout-button" type="button">Logout</button>
+        </nav>
+    </header>
+    <main>
+        <h2>Meus Colecionáveis</h2>
+        <p id="collectible-count-display" style="text-align: center; margin-bottom: 15px; font-size: 1.1em; color: #fff; text-shadow: 1px 1px 1px #000;"></p>
+        <div class="collection-grid">
+            <!-- Populated by script.js -->
+        </div>
+
+        <section id="upload-section">
+            <h2>Adicionar Novo Boneco à Coleção</h2>
+            <p id="edit-mode-indicator" style="display:none; color: #007bff; text-align:center; font-weight:bold; margin-bottom:10px;">Modo de Edição Ativado</p>
+            <form id="upload-form">
+                <div>
+                    <label for="collectible-name">Nome do Boneco:</label>
+                    <input type="text" id="collectible-name" name="collectible-name" required>
+                </div>
+                <div>
+                    <label for="collectible-source">Filme/Série/Desenho:</label>
+                    <input type="text" id="collectible-source" name="collectible-source" required>
+                </div>
+                <div>
+                    <label for="collectible-year">Ano:</label>
+                    <input type="text" id="collectible-year" name="collectible-year" required>
+                </div>
+                <div>
+                    <label for="image-upload">Imagem do Boneco:</label>
+                    <input type="file" id="image-upload" name="image-upload" accept="image/*">
+                </div>
+                <img id="image-preview" src="#" alt="Pré-visualização da imagem" style="display: none;">
+                <p id="upload-form-message" class="message" style="display: none;"></p>
+                <button type="submit">Adicionar Boneco</button>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script> <!-- This is the script for dashboard functionalities -->
+</body>
+</html>
