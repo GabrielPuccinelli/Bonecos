@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!userResultsGrid.contains(noUserResultsMessage)) userResultsGrid.appendChild(noUserResultsMessage);
         Array.from(userResultsGrid.querySelectorAll('.user-result-item')).forEach(item => item.remove());
         if (users.length === 0) {
-            noUserResultsMessage.textContent = "Nenhum usuário encontrado.";
+            noUserResultsMessage.textContent = `Nenhum usuário encontrado com o termo: "${searchQueryInput.value.trim()}"`;
             noUserResultsMessage.style.display = 'block';
         } else {
             noUserResultsMessage.style.display = 'none';
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!collectibleResultsGrid.contains(noCollectibleResultsMessage)) collectibleResultsGrid.appendChild(noCollectibleResultsMessage);
         Array.from(collectibleResultsGrid.querySelectorAll('.collectible-result-item')).forEach(item => item.remove());
         if (collectibles.length === 0) {
-            noCollectibleResultsMessage.textContent = "Nenhum boneco encontrado.";
+            noCollectibleResultsMessage.textContent = `Nenhum boneco localizado com o termo: "${searchQueryInput.value.trim()}"`;
             noCollectibleResultsMessage.style.display = 'block';
         } else {
             noCollectibleResultsMessage.style.display = 'none';

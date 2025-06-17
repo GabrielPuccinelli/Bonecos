@@ -1,5 +1,19 @@
 /* Styles for content within .static-page-content (about.html, contact.html) */
 
+/* Override body display from public-gallery.style.css for pages that don't have a sidebar */
+body.no-sidebar { /* Add class="no-sidebar" to <body> of about.html, contact.html */
+    display: block; /* Revert to default block flow */
+    padding: 0; /* Reset body padding, handled by page-specific main containers */
+}
+/* Ensure header and footer on these pages still take full width */
+body.no-sidebar > header#main-header-public,
+body.no-sidebar > footer {
+    /* Assuming they are direct children. If wrapped, adjust selector */
+    /* Styles from public-gallery.style.css should mostly apply for color/theme */
+    /* Add width: 100% if they don't span correctly due to body block display */
+}
+
+
 .static-page-content {
     max-width: 800px; /* Max width for readable text content */
     margin: 30px auto; /* Centered with space from header/footer */
@@ -7,6 +21,9 @@
     background-color: rgba(255, 255, 255, 0.05); /* Very subtle overlay, assuming dark body background from public-gallery.style.css */
     border-radius: 8px;
     color: #e0e0e0; /* Light text color, assuming dark body */
+    flex-grow: 1; /* Allow main content to push footer down if body is still flex column */
+    padding-top: 20px; /* Add padding if body padding was removed */
+    padding-bottom: 20px;
 }
 
 .static-page-content section {

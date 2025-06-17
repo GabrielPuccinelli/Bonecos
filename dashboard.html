@@ -49,9 +49,13 @@
                     <input type="text" id="collectible-year" name="collectible-year" required>
                 </div>
                 <div>
-                    <label for="image-upload">Imagem do Boneco:</label>
-                    <input type="file" id="image-upload" name="image-upload" accept="image/*">
+                    <label for="image-upload">Imagens do Boneco (até 4):</label>
+                    <input type="file" id="image-upload" name="image-upload" accept="image/*" multiple>
                 </div>
+                <div id="image-previews-container" class="image-previews-container">
+                    <!-- Image previews will be populated here by JS -->
+                </div>
+                <small>A primeira imagem selecionada será a principal.</small>
                 <div class="form-group">
                     <label for="collectible-condition">Condição:</label>
                     <select id="collectible-condition" name="collectible-condition">
@@ -59,8 +63,8 @@
                         <option value="usado">Usado</option>
                     </select>
                 </div>
-                <img id="image-preview" src="#" alt="Pré-visualização da imagem" style="display: none;">
-                <div class="form-group form-group-checkbox"> <!-- New class for styling -->
+                <!-- <img id="image-preview" src="#" alt="Pré-visualização da imagem" style="display: none;">  -- Removed single preview -->
+                <div class="form-group form-group-checkbox">
                     <input type="checkbox" id="collectible-for-trade" name="collectible-for-trade">
                     <label for="collectible-for-trade">Tenho interesse em negociar este item (venda/troca)</label>
                 </div>
