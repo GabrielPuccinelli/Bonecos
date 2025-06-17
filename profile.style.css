@@ -1,152 +1,127 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* Styles for profile.html content, assuming body, header, footer, sidebar are styled by public-gallery.style.css */
 
-body {
-    font-family: 'Arial', sans-serif;
-    background: radial-gradient(circle at center, #2c3e50, #3498db, #2980b9); /* Different themed background */
-    color: #fff; /* Default text color for body */
-    min-height: 100vh;
+.profile-main-content { /* This is the <main> element */
+    width: 100%;
+    max-width: 1100px; /* Consistent with other main content areas */
+    margin: 20px auto; /* Space from header/footer */
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    background-color: transparent; /* Let body background from public-gallery.style.css show */
 }
 
-.page-header {
-    width: 100%;
-    max-width: 1000px; /* Wider for profile page */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 25px;
-    background-color: rgba(0, 0, 0, 0.7); /* Darker, semi-transparent header */
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    margin-bottom: 30px;
-    border: 2px solid #fff; /* White border for contrast */
-}
-
-.page-header h1#profile-username-display {
-    color: #ffcc00; /* Yellow, comic-style */
-    font-size: 1.8em;
-    text-shadow: 2px 2px 0px #000;
-}
-
-.page-header nav a.nav-link {
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: 10px;
-}
-
-.page-header nav a.nav-link:hover {
-    background-color: #ffcc00;
-    color: #333;
-}
-
-.profile-main-content {
-    width: 100%;
-    max-width: 1000px; /* Consistent width with header */
-    background-color: rgba(255, 255, 255, 0.1); /* Light overlay for content area */
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-#profile-collectibles-section h2 {
-    font-size: 1.6em;
-    color: #fff; /* White text for section title */
+#profile-main-title-section h1#profile-page-title { /* The main H1 of the profile page content */
+    color: #ffcc00; /* Thematic yellow */
     text-align: center;
-    margin-bottom: 10px;
+    font-size: 2.2em; /* Prominent title */
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 2px #000;
+}
+/* Span inside H1 is styled inline if needed, or can be targeted: #profile-page-title span */
+
+
+#profile-collectibles-section h2 { /* "Colecionáveis de [Usuário]:" */
+    font-size: 1.8em; /* Slightly smaller than main page title */
+    color: #e0e0e0; /* Light text */
+    text-align: center;
+    margin-bottom: 15px;
     text-shadow: 1px 1px 1px #000;
 }
+/* Span inside this h2 is styled inline or can be targeted: #profile-username-collectibles-title */
+
 
 .collectible-count { /* Styling for #profile-collectible-count-display */
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px; /* More space before grid */
     font-size: 1.1em;
-    color: #eee; /* Light grey for count */
+    color: #ccc; /* Lighter grey for count */
     font-weight: bold;
 }
 
-/* Copied from style.css for .collection-grid and .collectible-item for consistency */
-.collection-grid {
-    display: flex; /* Changed to flex for profile page, can adjust as needed */
-    flex-wrap: wrap;
+/* Styles for .collection-grid and .collectible-item within profile page */
+/* These should match the dark theme applied to dashboard.html (style.css) */
+#profile-collection-grid.collection-grid {
+    display: grid; /* Using grid for profile page for variety / better control */
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); /* Slightly smaller minmax */
     gap: 20px;
-    justify-content: center; /* Center items */
-    margin-bottom: 40px;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
-.collectible-item {
-    background-color: #f9f9f9;
-    border: 3px solid #333;
+#profile-collection-grid .collectible-item {
+    background-color: #2a2a3e; /* Dark card background */
+    border: 2px solid #ffcc00; /* Thematic yellow border */
     border-radius: 8px;
     padding: 15px;
-    width: calc(33.333% - 20px); /* Default to 3 columns */
-    min-width: 220px; /* Slightly smaller min-width for profile items */
-    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
-    color: #333; /* Text color for item content */
-    display: flex; /* Added flex for internal alignment */
-    flex-direction: column; /* Stack item content vertically */
+    /* width: calc(33.333% - 20px); -- Not needed for grid item */
+    /* min-width: 220px; -- Handled by grid-template-columns */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
-.collectible-item img {
+#profile-collection-grid .collectible-item:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255,204,0,0.25);
+    z-index: 10;
+}
+
+#profile-collection-grid .collectible-item img {
     max-width: 100%;
-    height: 200px; /* Fixed height for uniform look in profile */
-    object-fit: cover; /* Ensure image covers the area, might crop */
+    height: 200px; /* Slightly smaller fixed height */
+    object-fit: cover;
     display: block;
-    margin-bottom: 10px;
-    border: 2px solid #ccc;
+    margin-bottom: 12px;
     border-radius: 4px;
+    border: 1px solid #444;
 }
 
-.collectible-item h3 {
-    font-size: 1.1em; /* Adjusted size for profile */
-    color: #d00000; /* Red for item titles */
+#profile-collection-grid .collectible-item h3 {
+    font-size: 1.15em; /* Slightly adjusted */
+    color: #ffcc00;
     margin-bottom: 8px;
     text-align: center;
-    flex-grow: 0; /* Don't allow h3 to grow excessively */
+    flex-grow: 0; /* Prevent h3 from taking too much space */
 }
 
-.collectible-item p {
-    font-size: 0.85em; /* Adjusted size for profile */
-    line-height: 1.3;
-    margin-bottom: 5px;
-    flex-grow: 0; /* Ensure text doesn't grow excessively, allowing indicator to be placed after */
+#profile-collection-grid .collectible-item p {
+    font-size: 0.88em; /* Slightly adjusted */
+    line-height: 1.4;
+    margin-bottom: 6px;
+    /* flex-grow: 1; -- Removed to allow indicators to be at bottom without pushing text up too much */
+}
+#profile-collection-grid .collectible-item p:last-of-type { /* Add space for owner/buttons */
+    flex-grow: 1;
 }
 
-.collectible-item .collectible-detail-condition {
-    font-size: 0.8em; /* Match .for-trade-indicator */
-    color: #555; /* Dark grey for light card */
-    margin-top: 5px;
-    margin-bottom: 5px;
-    text-align: left; /* Or center */
-}
 
-.collectible-item .for-trade-indicator {
-    background-color: #28a745; /* Green to indicate 'available' or 'for trade' */
-    color: white;
+#profile-collection-grid .collectible-item .collectible-detail-condition {
     font-size: 0.8em;
-    padding: 3px 8px;
-    border-radius: 4px;
-    text-align: center;
-    margin-top: 8px;
-    font-weight: bold;
-    align-self: center; /* Center it if the card is wider */
-    max-width: 150px;
+    color: #b0b0d0;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    text-align: left;
 }
 
-.collectible-item .chat-btn,
-.collectible-item .login-to-chat-link {
-    background-color: #007bff; /* Blue, distinct */
+#profile-collection-grid .collectible-item .for-trade-indicator {
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    font-size: 0.75em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-align: center;
+    margin-top: 6px;
+    font-weight: bold;
+    align-self: flex-start;
+    max-width: fit-content;
+}
+
+/* Chat buttons/links on profile items */
+#profile-collection-grid .collectible-item .chat-btn,
+#profile-collection-grid .collectible-item .view-item-chats-btn,
+#profile-collection-grid .collectible-item .login-to-chat-link {
+    background-color: #007bff;
     color: white;
     text-decoration: none;
     padding: 6px 10px;
@@ -155,72 +130,74 @@ body {
     margin-top: 10px;
     font-weight: bold;
     font-size: 0.85em;
-    display: inline-block;
-    align-self: center;
+    display: block; /* Make them block to take more width if needed */
+    width: 90%; /* Take most of card width */
+    margin-left: auto;
+    margin-right: auto;
     border: none;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
-.collectible-item .chat-btn:hover,
-.collectible-item .login-to-chat-link:hover {
+#profile-collection-grid .collectible-item .chat-btn:hover,
+#profile-collection-grid .collectible-item .view-item-chats-btn:hover,
+#profile-collection-grid .collectible-item .login-to-chat-link:hover {
     background-color: #0056b3;
     color: white;
 }
-.collectible-item .login-to-chat-link {
-    background-color: #17a2b8; /* Teal for login prompt */
+#profile-collection-grid .collectible-item .login-to-chat-link {
+    background-color: #17a2b8;
 }
-.collectible-item .login-to-chat-link:hover {
+#profile-collection-grid .collectible-item .login-to-chat-link:hover {
     background-color: #117a8b;
 }
+/* Ensure view-item-chats-btn uses sidebar-button-style if that's the class from JS */
+#profile-collection-grid .collectible-item .sidebar-button-style {
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    /* other styles from .sidebar-button in public-gallery.style.css */
+}
+#profile-collection-grid .collectible-item .sidebar-button-style:hover {
+    background-color: #e6b800;
+}
 
-/* End of copied styles */
 
-.no-results-message {
+.no-results-message { /* For #profile-collection-grid */
     padding: 20px;
     text-align: center;
-    color: #ccc; /* Lighter color for this message on profile page */
+    color: #ccc;
     font-style: italic;
-    width: 100%; /* Span full width if it's the only item */
+    width: 100%;
+    font-size: 1.1em;
 }
 
 /* Responsive adjustments for profile page grid */
 @media (max-width: 992px) {
-    .collectible-item {
-        width: calc(50% - 20px); /* 2 items per row */
+    #profile-collection-grid.collection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
 
 @media (max-width: 768px) {
-    .page-header {
-        flex-direction: column;
-        gap: 10px;
-        text-align: center;
+    .profile-main-content {
+        padding: 15px;
     }
-    .page-header h1#profile-username-display {
-        font-size: 1.6em;
+    #profile-main-title-section h1#profile-page-title {
+        font-size: 1.8em;
     }
-    .page-header nav {
-        display: flex;
-        flex-direction: column; /* Stack nav links */
-        gap: 8px;
+    #profile-collectibles-section h2 {
+        font-size: 1.4em;
     }
-     .page-header nav a.nav-link {
-        margin-left: 0;
+    #profile-collection-grid.collection-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 15px;
     }
-    .collectible-item {
-        width: calc(100% - 20px); /* 1 item per row */
-        min-width: unset; /* Remove min-width for single column */
+    #profile-collection-grid .collectible-item img {
+        height: 160px;
     }
 }
 
 @media (max-width: 480px) {
-    .collectible-item img {
-        height: 150px; /* Smaller image height on very small screens */
-    }
-     .collectible-item h3 {
-        font-size: 1em;
-    }
-    .collectible-item p {
-        font-size: 0.8em;
+    #profile-collection-grid.collection-grid {
+        grid-template-columns: 1fr; /* Single column */
     }
 }
