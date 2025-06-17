@@ -22,6 +22,11 @@
                 <label for="reg-confirm-password">Confirmar Senha:</label>
                 <input type="password" id="reg-confirm-password" name="reg-confirm-password" required>
             </div>
+            <div class="form-group">
+                <label for="reg-profile-image">Imagem de Perfil (Opcional):</label>
+                <input type="file" id="reg-profile-image" name="reg-profile-image" accept="image/*">
+                <img id="reg-profile-image-preview" src="#" alt="Pré-visualização do Perfil" style="max-width: 100px; max-height: 100px; display: none; margin-top: 10px; border-radius: 50%;">
+            </div>
             <button type="submit">Cadastrar</button>
             <p id="register-message" class="message" style="display: none;"></p>
         </form>

@@ -29,23 +29,25 @@ body {
     text-shadow: 1px 1px 0px #ffcc00, 2px 2px 0px #000; /* Yellow/Black shadow */
 }
 
-.register-container form div {
+.register-container form div,
+.register-container form .form-group { /* Apply to both direct div children and .form-group */
     margin-bottom: 1.2em; /* Space between form groups */
+    text-align: left; /* Ensure labels and inputs within align left */
 }
 
 .register-container label {
     display: block;
     margin-bottom: 0.4em; /* Slightly less margin */
-    text-align: left;
     font-weight: bold;
     color: #333;
     font-size: 0.95em; /* Slightly smaller label */
 }
 
 .register-container input[type="text"],
-.register-container input[type="password"] {
+.register-container input[type="password"],
+.register-container input[type="file"] { /* Added file input styling */
     width: 100%;
-    padding: 0.7em; /* Slightly smaller padding */
+    padding: 0.7em;
     border: 2px solid #555;
     border-radius: 4px;
     box-sizing: border-box;
@@ -54,18 +56,35 @@ body {
     color: #333;
 }
 
+.register-container input[type="file"] {
+    padding: 0.5em; /* Slightly different padding for file input consistency */
+}
+
+
 .register-container input[type="text"]:focus,
-.register-container input[type="password"]:focus {
-    border-color: #ffcc00; /* Yellow border on focus */
+.register-container input[type="password"]:focus,
+.register-container input[type="file"]:focus { /* Added file input focus */
+    border-color: #ffcc00;
     outline: none;
     box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
 }
 
+#reg-profile-image-preview { /* Styling for the new preview image */
+    max-width: 100px;
+    max-height: 100px;
+    display: none; /* Initially hidden, shown by JS */
+    margin-top: 10px;
+    border-radius: 50%; /* Circular preview */
+    border: 2px dashed #ffcc00; /* Thematic border */
+    object-fit: cover; /* Ensure image covers the area */
+}
+
+
 .register-container button[type="submit"] {
-    background-color: #ffcc00; /* Yellow button */
+    background-color: #ffcc00;
     color: #333;
     border: 2px solid #000;
-    padding: 0.7em 1em; /* Adjusted padding */
+    padding: 0.7em 1em;
     font-size: 1.1em;
     font-weight: bold;
     text-transform: uppercase;
@@ -74,52 +93,53 @@ body {
     width: 100%;
     transition: background-color 0.3s ease, transform 0.2s ease;
     box-shadow: 2px 2px 0px #000;
-    margin-top: 0.5em; /* Added margin top */
+    margin-top: 0.5em;
 }
 
 .register-container button[type="submit"]:hover {
-    background-color: #e6b800; /* Darker yellow on hover */
+    background-color: #e6b800;
     transform: translateY(-2px);
     box-shadow: 4px 4px 0px #000;
 }
 
 .register-container .message {
-    /* General styling for the message paragraph */
     margin-top: 1em;
     font-size: 0.9em;
     font-weight: bold;
-    min-height: 1em; /* Reserve space */
-    /* Specific colors like red/green will be applied via JS by adding classes like .error or .success */
-    color: #333; /* Default color */
+    min-height: 1em;
+    color: #333;
+    text-align: center; /* Ensure messages are centered */
 }
 
-/* Styling for .message.success and .message.error (to be added by JS) */
 .register-container .message.success {
-    color: #008000; /* Green */
-    /* background-color: #e6ffe6; Light green background */
-    /* border: 1px solid #008000; */
-    /* padding: 0.5em; */
+    color: #008000;
+    background-color: #e6ffe6;
+    border: 1px solid #008000;
+    padding: 0.5em;
+    border-radius: 4px;
 }
 
 .register-container .message.error {
-    color: #D8000C; /* Red */
-    /* background-color: #FFD2D2; Light red background */
-    /* border: 1px solid #D8000C; */
-    /* padding: 0.5em; */
+    color: #D8000C;
+    background-color: #FFD2D2;
+    border: 1px solid #D8000C;
+    padding: 0.5em;
+    border-radius: 4px;
 }
 
-.register-container p { /* For the "Já tem uma conta?" paragraph */
+.register-container p {
     margin-top: 1.5em;
     font-size: 0.9em;
     color: #333;
+    text-align: center; /* Ensure this paragraph is centered */
 }
 
 .register-container p a {
-    color: #007bff; /* Standard link blue, or a thematic color */
+    color: #007bff;
     text-decoration: underline;
     font-weight: bold;
 }
 
 .register-container p a:hover {
-    color: #0056b3; /* Darker blue on hover */
+    color: #0056b3;
 }

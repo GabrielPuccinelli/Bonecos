@@ -1,0 +1,322 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    min-height: 100%;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styling */
+#main-header-public {
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 15px 20px;
+    display: flex;
+    /* justify-content: space-between; -- Removed for natural flow */
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 2px solid #ffcc00;
+    gap: 15px;
+}
+
+.logo-container {
+    flex-shrink: 0; /* Prevent logo from shrinking */
+}
+
+.logo-container #logo-text {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #ffcc00;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* This div will be displayed by JS if user is logged in */
+#user-profile-header-info-public {
+    /* display: none; is set by JS initially or by HTML */
+    /* align-items: center; gap: 10px; are set by inline style */
+    margin-left: auto; /* Pushes this and subsequent nav to the right */
+    flex-shrink: 0;
+}
+#public-header-profile-image {
+    /* Styles set by inline HTML */
+}
+#public-header-username {
+    font-size: 0.9em;
+}
+
+
+#public-nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end; /* Aligns items to the end of this container */
+}
+
+#public-nav a {
+    color: #f0f0f0;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin-left: 8px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 0.95em;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    white-space: nowrap;
+}
+
+#public-nav a:hover,
+#public-nav a.active {
+    background-color: #ffcc00;
+    color: #1a1a2e;
+}
+
+#mobile-menu-toggle {
+    display: none;
+    background: none;
+    color: #ffcc00;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    margin-left: 10px; /* Give it some space if nav is short */
+}
+
+/* Hero Section Styling */
+#hero-section {
+    background-image: url('https://via.placeholder.com/1600x500.png?text=Marvel+Universe+Background');
+    background-size: cover;
+    background-position: center center;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    position: relative;
+}
+
+#hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 8px;
+}
+
+.hero-content h1 {
+    font-size: 2.8em;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+}
+
+.hero-content p {
+    font-size: 1.4em;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* Main Content Area */
+main {
+    flex-grow: 1;
+    width: 100%;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+#global-gallery-section h2 {
+    font-size: 2em;
+    color: #ffcc00;
+    text-align: center;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* Collection Grid & Item Styling */
+.collection-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.collectible-item {
+    background-color: #2a2a3e;
+    border: 2px solid #ffcc00;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s ease-in-out;
+}
+
+.collectible-item:hover {
+    transform: translateY(-5px);
+}
+
+.collectible-item img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    border: 1px solid #444;
+}
+
+.collectible-item h3 {
+    font-size: 1.2em;
+    color: #ffcc00;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.collectible-item p {
+    font-size: 0.9em;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+.collectible-item p.owner-info {
+    font-size: 0.8em;
+    color: #aaa;
+    margin-top: auto;
+    padding-top: 5px;
+    text-align: right;
+}
+
+
+/* Pagination Styling */
+#pagination-controls {
+    text-align: center;
+    margin-top: 30px;
+    padding-bottom: 20px;
+}
+
+#pagination-controls button,
+#pagination-controls span.page-number {
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    border: 1px solid #1a1a2e;
+    padding: 8px 14px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#pagination-controls button:hover:not(:disabled) {
+    background-color: #1a1a2e;
+    color: #ffcc00;
+    border-color: #ffcc00;
+}
+
+#pagination-controls button:disabled {
+    background-color: #555;
+    color: #888;
+    cursor: not-allowed;
+    border-color: #444;
+}
+
+#pagination-controls span.page-number.current {
+    background-color: #1a1a2e;
+    color: #ffcc00;
+    border-color: #ffcc00;
+    cursor: default;
+}
+
+
+/* Footer Styling */
+footer {
+    background-color: rgba(0, 0, 0, 0.85);
+    color: #ccc;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+    border-top: 1px solid #444;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 880px) {
+    /* No change needed here for now, flex-wrap on nav will handle some cases */
+}
+
+
+@media (max-width: 768px) {
+    #main-header-public {
+        flex-direction: column;
+        padding: 10px;
+    }
+    .logo-container {
+        margin-bottom: 10px;
+        text-align: center; /* Center logo when header is column */
+        width: 100%;
+    }
+    #user-profile-header-info-public {
+        margin-left: 0;
+        margin-bottom: 10px;
+        order: -1; /* Display user info first on mobile */
+        width: 100%;
+        justify-content: center;
+    }
+    #public-nav {
+        flex-direction: column;
+        width: 100%;
+        display: none;
+        order: initial; /* Reset order from HTML for column flow */
+    }
+    #public-nav.active {
+        display: flex;
+    }
+    #public-nav a {
+        width: 100%;
+        text-align: center;
+        padding: 12px 5px;
+        margin-left: 0;
+        border-top: 1px solid #444;
+    }
+    #public-nav a:first-child { border-top: none; }
+    #mobile-menu-toggle {
+        display: block;
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        order: initial; /* Reset order */
+    }
+
+    .hero-content h1 { font-size: 2em; }
+    .hero-content p { font-size: 1.1em; }
+    #global-gallery-section h2 { font-size: 1.6em; }
+    .collection-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+    .collectible-item img { height: 180px; }
+}
+
+@media (max-width: 480px) {
+    .collection-grid { grid-template-columns: 1fr; }
+    #pagination-controls button, #pagination-controls span.page-number { padding: 6px 10px; margin: 0 3px; font-size: 0.9em; }
+}

@@ -25,63 +25,87 @@ header {
     align-items: center;
 }
 
+.header-left-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
+}
+
+#user-profile-header-info {
+    /* display: none; set by JS */
+}
+#header-profile-image {
+    /* Styles set by inline HTML */
+}
+#header-username {
+    font-size: 1em;
+}
+
 header h1 {
-    font-size: 2.2rem;
+    font-size: 2.0rem;
     text-shadow: 3px 3px 0px #000;
     margin: 0;
     text-transform: uppercase;
-    flex-grow: 1; /* Allow title to take available space */
     text-align: left;
 }
 
 #main-nav {
     display: flex;
     align-items: center;
-    gap: 15px; /* Spacing between nav items */
+    gap: 15px;
+    flex-shrink: 0;
 }
 
-#nav-search-link {
+/* General styling for links within main-nav, also applied to specific IDs if needed */
+#main-nav a, #main-nav button { /* Apply to both links and buttons for consistency */
     color: white;
     text-decoration: none;
-    padding: 10px 15px; /* Consistent padding with logout button */
+    padding: 10px 15px;
     border-radius: 5px;
-    background-color: #007bff; /* Blue for search */
-    border: 2px solid #000; /* Consistent border with logout button */
+    border: 2px solid #000;
     font-weight: bold;
-    text-transform: uppercase; /* Consistent with logout button */
-    font-size: 1rem; /* Consistent with logout button */
-    box-shadow: 2px 2px 0px #000; /* Consistent shadow */
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-transform: uppercase;
+    font-size: 1rem;
+    box-shadow: 2px 2px 0px #000;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block; /* Ensure correct padding and border display */
+    line-height: 1; /* Ensure text is vertically centered for <a> tags */
 }
 
-#nav-search-link:hover {
-    background-color: #0056b3; /* Darker blue */
+#main-nav a:hover, #main-nav button:hover {
     transform: translateY(-2px);
     box-shadow: 4px 4px 0px #000;
+}
+
+/* Specific background colors for each nav item */
+#nav-search-link {
+    background-color: #007bff; /* Blue for search */
+}
+#nav-search-link:hover {
+    background-color: #0056b3; /* Darker blue */
+}
+
+#nav-about-loggedin {
+    background-color: #17a2b8; /* Info blue/teal */
+}
+#nav-about-loggedin:hover {
+    background-color: #117a8b;
+}
+
+#nav-contact-loggedin {
+    background-color: #28a745; /* Green for contact */
+}
+#nav-contact-loggedin:hover {
+    background-color: #1e7e34;
 }
 
 #logout-button {
     background-color: #f44336; /* Red */
-    color: white;
-    border: 2px solid #000;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 1rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 5px;
-    cursor: pointer;
-    /* margin-left: 20px; No longer needed due to gap in nav */
-    box-shadow: 2px 2px 0px #000;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer; /* Ensure button has cursor pointer */
 }
-
 #logout-button:hover {
     background-color: #d32f2f;
-    transform: translateY(-2px);
-    box-shadow: 4px 4px 0px #000;
 }
 
 
@@ -121,11 +145,14 @@ main h2 {
     min-width: 250px;
     box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
     color: #333;
+    display: flex;
+    flex-direction: column;
 }
 
 .collectible-item img {
     max-width: 100%;
-    height: auto;
+    height: 200px;
+    object-fit: cover;
     display: block;
     margin-bottom: 10px;
     border: 2px solid #ccc;
@@ -143,7 +170,47 @@ main h2 {
     font-size: 0.9rem;
     line-height: 1.4;
     margin-bottom: 5px;
+    flex-grow: 1;
 }
+
+.collectible-item-actions {
+    margin-top: auto;
+    padding-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.collectible-item button.edit-btn,
+.collectible-item button.delete-btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    flex-grow: 1;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.collectible-item .edit-btn {
+    background-color: #ffc107;
+    color: black;
+}
+.collectible-item .edit-btn:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+.collectible-item .delete-btn {
+    background-color: #dc3545;
+    color: white;
+}
+.collectible-item .delete-btn:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
 
 /* Upload Section Styles */
 #upload-section {
@@ -157,6 +224,18 @@ main h2 {
 #upload-section h2 {
     margin-top: 0;
 }
+
+#edit-mode-indicator {
+    color: #007bff;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 15px;
+    padding: 8px;
+    background-color: rgba(0, 123, 255, 0.1);
+    border: 1px dashed #007bff;
+    border-radius: 4px;
+}
+
 
 #upload-form {
     display: flex;
@@ -269,30 +348,58 @@ main h2 {
     header {
         padding: 15px;
         flex-direction: column;
-        gap: 15px; /* Increased gap for stacked header items */
+        gap: 10px;
+    }
+    .header-left-content {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+    }
+    #user-profile-header-info {
+        margin-right: 0;
+        order: -1;
     }
     header h1 {
         font-size: 1.8rem;
         text-align: center;
     }
     #main-nav {
-        flex-direction: column; /* Stack nav items vertically */
-        width: 100%; /* Make nav take full width */
-        gap: 10px; /* Spacing for stacked nav items */
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        margin-top: 10px;
     }
-    #nav-search-link,
-    #logout-button {
-        width: 90%; /* Or a specific max-width like 250px */
-        max-width: 300px; /* Ensure they don't get too wide */
-        margin: 0 auto; /* Center the buttons/links */
+    #main-nav a,
+    #main-nav button { /* Apply to all items in main-nav for responsive stacking */
+        width: 90%;
+        max-width: 300px;
+        margin-left: auto; /* Use auto margins for centering */
+        margin-right: auto;
         text-align: center;
-        /* margin-bottom: 10px; -- gap in #main-nav handles this */
     }
     main h2 {
         font-size: 1.8rem;
     }
     .collectible-item {
         width: calc(100% - 20px);
-        min-width: 200px;
+        min-width: unset;
+    }
+    .collectible-item-actions {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 480px) {
+    .collectible-item-actions {
+        flex-direction: column;
+    }
+    .collectible-item button.edit-btn,
+    .collectible-item button.delete-btn {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    .collectible-item button.delete-btn {
+        margin-bottom: 0;
     }
 }

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato - Portal de Colecionáveis</title>
+    <link rel="stylesheet" href="public-gallery.style.css"> <!-- For header/footer/body consistency -->
+    <link rel="stylesheet" href="static-page.style.css">   <!-- For content specific to about/contact -->
+</head>
+<body>
+    <header id="main-header-public">
+        <div class="logo-container">
+            <a href="public-gallery.html" id="logo-text">PortalColecionaveis</a>
+        </div>
+        <nav id="public-nav">
+            <a href="search.html" id="nav-search-public-link">Buscar</a>
+            <a href="about.html" id="nav-about-link">Sobre Nós</a>
+            <a href="contact.html" id="nav-contact-link">Contato</a>
+            <a href="register.html" id="nav-register-link">Cadastre-se</a>
+            <a href="login.html" id="nav-login-link">Login</a>
+        </nav>
+        <button id="mobile-menu-toggle" aria-label="Abrir menu">☰</button>
+    </header>
+
+    <main class="static-page-content">
+        <section id="contact-info">
+            <h1>Entre em Contato</h1>
+            <p>Adoraríamos ouvir de você! Seja para sugestões, dúvidas ou apenas para compartilhar sua paixão por colecionáveis.</p>
+            <h2>Nossas Redes Sociais (Exemplos):</h2>
+            <ul class="social-links">
+                <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+                <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer">X (Twitter)</a></li>
+                <li><a href="https://whatsapp.com" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+            </ul>
+        </section>
+        <hr class="section-divider">
+        <section id="contact-form-section">
+            <h2>Mande sua Mensagem ou Sugestão:</h2>
+            <form id="contact-form-visual">
+                <div class="form-group">
+                    <label for="contact-name">Nome:</label>
+                    <input type="text" id="contact-name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-email">Email:</label>
+                    <input type="email" id="contact-email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact-message">Mensagem:</label>
+                    <textarea id="contact-message" name="message" rows="6" required></textarea>
+                </div>
+                <button type="submit">Enviar Mensagem</button>
+                <p id="contact-form-feedback" style="display:none; margin-top:15px; padding:10px; border-radius:5px;"></p>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Portal de Colecionáveis. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="public-gallery.script.js"></script> <!-- For mobile menu toggle logic -->
+    <script src="contact.script.js"></script>    <!-- For contact form logic -->
+</body>
+</html>
