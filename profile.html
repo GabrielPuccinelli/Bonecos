@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil do Usuário - Portal de Colecionáveis</title>
+    <link rel="stylesheet" href="profile.style.css">
+    <!-- Optionally link to main style.css if common styles are well-namespaced -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+</head>
+<body>
+    <header class="page-header">
+        <h1 id="profile-username-display">Perfil de Usuário</h1>
+        <nav>
+            <a href="index.html" class="nav-link">Página Inicial</a> |
+            <a href="search.html" class="nav-link">Página de Busca</a>
+        </nav>
+    </header>
+
+    <main class="profile-main-content">
+        <section id="profile-collectibles-section">
+            <h2>Colecionáveis de <span id="profile-username-collectibles-title">[Usuário]</span>:</h2>
+            <p id="profile-collectible-count-display" class="collectible-count"></p>
+            <div id="profile-collection-grid" class="collection-grid">
+                <!-- Collectibles of the profile user will be populated here -->
+                <p class="no-results-message" style="display:none;">Este usuário ainda não adicionou nenhum boneco.</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="profile.script.js"></script>
+</body>
+</html>

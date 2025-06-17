@@ -1,0 +1,175 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle at center, #2c3e50, #3498db, #2980b9); /* Different themed background */
+    color: #fff; /* Default text color for body */
+    min-height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.page-header {
+    width: 100%;
+    max-width: 1000px; /* Wider for profile page */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    background-color: rgba(0, 0, 0, 0.7); /* Darker, semi-transparent header */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    margin-bottom: 30px;
+    border: 2px solid #fff; /* White border for contrast */
+}
+
+.page-header h1#profile-username-display {
+    color: #ffcc00; /* Yellow, comic-style */
+    font-size: 1.8em;
+    text-shadow: 2px 2px 0px #000;
+}
+
+.page-header nav a.nav-link {
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: 10px;
+}
+
+.page-header nav a.nav-link:hover {
+    background-color: #ffcc00;
+    color: #333;
+}
+
+.profile-main-content {
+    width: 100%;
+    max-width: 1000px; /* Consistent width with header */
+    background-color: rgba(255, 255, 255, 0.1); /* Light overlay for content area */
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+#profile-collectibles-section h2 {
+    font-size: 1.6em;
+    color: #fff; /* White text for section title */
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 1px 1px 1px #000;
+}
+
+.collectible-count { /* Styling for #profile-collectible-count-display */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #eee; /* Light grey for count */
+    font-weight: bold;
+}
+
+/* Copied from style.css for .collection-grid and .collectible-item for consistency */
+.collection-grid {
+    display: flex; /* Changed to flex for profile page, can adjust as needed */
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center; /* Center items */
+    margin-bottom: 40px;
+}
+
+.collectible-item {
+    background-color: #f9f9f9;
+    border: 3px solid #333;
+    border-radius: 8px;
+    padding: 15px;
+    width: calc(33.333% - 20px); /* Default to 3 columns */
+    min-width: 220px; /* Slightly smaller min-width for profile items */
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
+    color: #333; /* Text color for item content */
+    display: flex; /* Added flex for internal alignment */
+    flex-direction: column; /* Stack item content vertically */
+}
+
+.collectible-item img {
+    max-width: 100%;
+    height: 200px; /* Fixed height for uniform look in profile */
+    object-fit: cover; /* Ensure image covers the area, might crop */
+    display: block;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+}
+
+.collectible-item h3 {
+    font-size: 1.1em; /* Adjusted size for profile */
+    color: #d00000; /* Red for item titles */
+    margin-bottom: 8px;
+    text-align: center;
+    flex-grow: 0; /* Don't allow h3 to grow excessively */
+}
+
+.collectible-item p {
+    font-size: 0.85em; /* Adjusted size for profile */
+    line-height: 1.3;
+    margin-bottom: 5px;
+    flex-grow: 0;
+}
+/* End of copied styles */
+
+.no-results-message {
+    padding: 20px;
+    text-align: center;
+    color: #ccc; /* Lighter color for this message on profile page */
+    font-style: italic;
+    width: 100%; /* Span full width if it's the only item */
+}
+
+/* Responsive adjustments for profile page grid */
+@media (max-width: 992px) {
+    .collectible-item {
+        width: calc(50% - 20px); /* 2 items per row */
+    }
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    .page-header h1#profile-username-display {
+        font-size: 1.6em;
+    }
+    .page-header nav {
+        display: flex;
+        flex-direction: column; /* Stack nav links */
+        gap: 8px;
+    }
+     .page-header nav a.nav-link {
+        margin-left: 0;
+    }
+    .collectible-item {
+        width: calc(100% - 20px); /* 1 item per row */
+        min-width: unset; /* Remove min-width for single column */
+    }
+}
+
+@media (max-width: 480px) {
+    .collectible-item img {
+        height: 150px; /* Smaller image height on very small screens */
+    }
+     .collectible-item h3 {
+        font-size: 1em;
+    }
+    .collectible-item p {
+        font-size: 0.8em;
+    }
+}

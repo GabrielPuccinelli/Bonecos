@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Busca - Portal de Colecionáveis</title>
+    <link rel="stylesheet" href="search.style.css">
+</head>
+<body>
+    <header class="page-header">
+        <h1>Página de Busca</h1>
+        <a href="index.html" class="nav-link">Voltar à Página Inicial</a>
+    </header>
+
+    <div class="search-container">
+        <form id="search-form">
+            <input type="text" id="search-query" placeholder="Buscar usuários ou bonecos..." required>
+            <button type="submit">Buscar</button>
+        </form>
+    </div>
+
+    <div class="results-container">
+        <section id="user-results-section">
+            <h2>Usuários Encontrados</h2>
+            <div id="user-results-grid" class="results-grid">
+                <!-- User results will be populated here -->
+                <p class="no-results-message" style="display:none;">Nenhum usuário encontrado.</p>
+            </div>
+        </section>
+
+        <hr class="results-divider">
+
+        <section id="collectible-results-section">
+            <h2>Bonecos Encontrados</h2>
+            <div id="collectible-results-grid" class="results-grid">
+                <!-- Collectible results will be populated here -->
+                <p class="no-results-message" style="display:none;">Nenhum boneco encontrado.</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="search.script.js"></script>
+</body>
+</html>

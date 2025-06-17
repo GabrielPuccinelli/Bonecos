@@ -6,54 +6,80 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif; /* Changed font for a slightly more comic feel */
-    background: radial-gradient(circle at top left, #f00 0%, #ff0 50%, #00f 100%); /* More dynamic comic background */
+    font-family: 'Arial', sans-serif;
+    background: radial-gradient(circle at top left, #f00 0%, #ff0 50%, #00f 100%);
     min-height: 100vh;
-    color: #fff; /* White text for better contrast on dark background */
-    padding-top: 20px; /* Add some padding at the top */
-    padding-bottom: 50px; /* Add padding at bottom for scroll */
+    color: #fff;
+    padding-top: 20px;
+    padding-bottom: 50px;
 }
 
 header {
-    background-color: #af0000; /* Dark red background for header */
+    background-color: #af0000;
     color: #fff;
-    padding: 15px 30px; /* Adjusted padding for flex items */
+    padding: 15px 30px;
     margin-bottom: 30px;
-    border-bottom: 5px solid #ffcc00; /* Yellow border bottom */
-    display: flex; /* Use flexbox for alignment */
-    justify-content: space-between; /* Space between title and button */
-    align-items: center; /* Vertically align items */
+    border-bottom: 5px solid #ffcc00;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 header h1 {
-    font-size: 2.2rem; /* Slightly adjust size if needed */
+    font-size: 2.2rem;
     text-shadow: 3px 3px 0px #000;
-    margin: 0; /* Remove default margin if any */
+    margin: 0;
     text-transform: uppercase;
-    flex-grow: 1; /* Allow title to take available space if button is small */
-    text-align: left; /* Align title to the left */
+    flex-grow: 1; /* Allow title to take available space */
+    text-align: left;
+}
+
+#main-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Spacing between nav items */
+}
+
+#nav-search-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px; /* Consistent padding with logout button */
+    border-radius: 5px;
+    background-color: #007bff; /* Blue for search */
+    border: 2px solid #000; /* Consistent border with logout button */
+    font-weight: bold;
+    text-transform: uppercase; /* Consistent with logout button */
+    font-size: 1rem; /* Consistent with logout button */
+    box-shadow: 2px 2px 0px #000; /* Consistent shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#nav-search-link:hover {
+    background-color: #0056b3; /* Darker blue */
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0px #000;
 }
 
 #logout-button {
     background-color: #f44336; /* Red */
     color: white;
-    border: 2px solid #000; /* Black border to match theme */
+    border: 2px solid #000;
     padding: 10px 15px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1rem; /* Unified font size */
+    font-size: 1rem;
     font-weight: bold;
     text-transform: uppercase;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 20px; /* Space from title */
-    box-shadow: 2px 2px 0px #000; /* Simple shadow */
+    /* margin-left: 20px; No longer needed due to gap in nav */
+    box-shadow: 2px 2px 0px #000;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 #logout-button:hover {
-    background-color: #d32f2f; /* Darker red */
+    background-color: #d32f2f;
     transform: translateY(-2px);
     box-shadow: 4px 4px 0px #000;
 }
@@ -62,18 +88,18 @@ header h1 {
 main {
     width: 90%;
     max-width: 1200px;
-    margin: 0 auto; /* Center main content */
+    margin: 0 auto;
     padding: 20px;
-    background-color: rgba(0,0,0,0.5); /* Semi-transparent black background for content area */
+    background-color: rgba(0,0,0,0.5);
     border-radius: 10px;
 }
 
-main h2 { /* This applies to both "Meus Colecionáveis" and "Adicionar Nova Imagem..." */
+main h2 {
     text-align: center;
-    margin-top: 20px; /* Added margin top for spacing if it's not the first child */
+    margin-top: 20px;
     margin-bottom: 20px;
     font-size: 2rem;
-    color: #ffcc00; /* Yellow for subheadings */
+    color: #ffcc00;
     text-transform: uppercase;
     text-shadow: 2px 2px 0px #000;
 }
@@ -83,7 +109,7 @@ main h2 { /* This applies to both "Meus Colecionáveis" and "Adicionar Nova Imag
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
-    margin-bottom: 40px; /* Add margin to separate from upload section */
+    margin-bottom: 40px;
 }
 
 .collectible-item {
@@ -122,62 +148,109 @@ main h2 { /* This applies to both "Meus Colecionáveis" and "Adicionar Nova Imag
 /* Upload Section Styles */
 #upload-section {
     padding: 20px;
-    margin-top: 30px; /* Space above the upload section */
-    background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter background for this section */
+    margin-top: 30px;
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
-    border: 2px dashed #ffcc00; /* Dashed yellow border */
+    border: 2px dashed #ffcc00;
 }
 
-#upload-section h2 { /* Specific styling if needed, but inherits main h2 styles */
-    margin-top: 0; /* Reset margin top if it's the first element in this section */
+#upload-section h2 {
+    margin-top: 0;
 }
 
 #upload-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 15px; /* Space between form elements */
+    gap: 15px;
+}
+
+#upload-form div {
+    margin-bottom: 5px;
+    width: 100%;
 }
 
 #upload-form label {
+    display: block;
+    margin-bottom: 5px;
     font-size: 1.1rem;
     color: #fff;
     text-shadow: 1px 1px 2px #000;
+    text-align: left;
 }
 
+#upload-form input[type="text"],
 #upload-form input[type="file"] {
-    padding: 8px;
+    width: 100%;
+    padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
-    background-color: #fff; /* White background for input */
-    color: #333; /* Dark text for input */
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
 }
+
+#upload-form input[type="text"]:focus,
+#upload-form input[type="file"]:focus {
+    border-color: #ffcc00;
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+}
+
 
 #image-preview {
-    display: none; /* Initially hidden */
+    display: none;
     max-width: 200px;
     max-height: 200px;
-    border: 3px solid #ffcc00; /* Yellow border for preview */
+    border: 3px solid #ffcc00;
     border-radius: 4px;
     margin-top: 10px;
-    object-fit: cover; /* Ensures the image covers the area well */
+    margin-bottom: 10px;
+    object-fit: cover;
+    align-self: center;
 }
 
+#upload-form .message {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    min-height: 1em;
+    text-align: center;
+    width: 100%;
+}
+#upload-form .message.success {
+    color: #008000;
+    background-color: #e6ffe6;
+    border: 1px solid #008000;
+    padding: 10px;
+    border-radius: 4px;
+}
+#upload-form .message.error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    border: 1px solid #D8000C;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+
 #upload-form button[type="submit"] {
-    background-color: #ffcc00; /* Yellow button */
-    color: #333; /* Dark text */
+    background-color: #ffcc00;
+    color: #333;
     border: 2px solid #000;
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 12px 20px;
+    font-size: 1.1rem;
     font-weight: bold;
     text-transform: uppercase;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    width: 100%;
+    margin-top: 10px;
 }
 
 #upload-form button[type="submit"]:hover {
-    background-color: #e6b800; /* Darker yellow on hover */
+    background-color: #e6b800;
     transform: translateY(-2px);
 }
 
@@ -194,17 +267,26 @@ main h2 { /* This applies to both "Meus Colecionáveis" and "Adicionar Nova Imag
         padding-top: 10px;
     }
     header {
-        padding: 15px; /* Adjust padding for smaller screens */
-        flex-direction: column; /* Stack title and button on small screens */
-        gap: 10px; /* Add gap between title and button when stacked */
+        padding: 15px;
+        flex-direction: column;
+        gap: 15px; /* Increased gap for stacked header items */
     }
     header h1 {
-        font-size: 1.8rem; /* Adjust title size for small screens */
-        text-align: center; /* Center title when stacked */
+        font-size: 1.8rem;
+        text-align: center;
     }
+    #main-nav {
+        flex-direction: column; /* Stack nav items vertically */
+        width: 100%; /* Make nav take full width */
+        gap: 10px; /* Spacing for stacked nav items */
+    }
+    #nav-search-link,
     #logout-button {
-        width: 100%; /* Make logout button full width on small screens */
-        margin-left: 0; /* Remove margin when stacked */
+        width: 90%; /* Or a specific max-width like 250px */
+        max-width: 300px; /* Ensure they don't get too wide */
+        margin: 0 auto; /* Center the buttons/links */
+        text-align: center;
+        /* margin-bottom: 10px; -- gap in #main-nav handles this */
     }
     main h2 {
         font-size: 1.8rem;
@@ -212,11 +294,5 @@ main h2 { /* This applies to both "Meus Colecionáveis" and "Adicionar Nova Imag
     .collectible-item {
         width: calc(100% - 20px);
         min-width: 200px;
-    }
-    #upload-form {
-        align-items: stretch; /* Stretch form elements on smaller screens */
-    }
-    #upload-form button[type="submit"] {
-        width: 100%;
     }
 }

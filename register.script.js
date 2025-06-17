@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // If all validations pass and username is unique
             // In a real app, password would be hashed before storing
-            const newUser = { username: username, password: password };
+            const newUser = { username: username, password: password, collectibles: [] }; // Added collectibles array
             users.push(newUser);
             localStorage.setItem('users', JSON.stringify(users));
 
