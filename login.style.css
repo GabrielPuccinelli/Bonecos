@@ -1,119 +1,122 @@
 body {
     font-family: 'Arial', sans-serif;
-    background: radial-gradient(circle at top left, #f00 0%, #ff0 50%, #00f 100%); /* Comic book gradient from main style */
+    background-color: #1a1a2e; /* Dark space blue/purple background */
+    /* Optional: Add a subtle gradient if desired, like public-gallery */
+    /* background-image: linear-gradient(135deg, #1a237e 0%, #3f51b5 70%, #1a1a2e 100%); */
+    color: #e0e0e0; /* Light default text color */
     display: flex;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    padding: 20px; /* Add some padding for smaller screens so container isn't flush with edge */
+    padding: 20px;
     box-sizing: border-box;
 }
 
 .login-container {
-    background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque for readability */
-    padding: 2em;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), 0 0 0 5px #fff, 0 0 0 10px #000; /* Comic-style layered shadow */
-    max-width: 400px;
+    background-color: rgba(0, 0, 0, 0.55); /* Semi-transparent dark */
+    padding: 2.5em; /* Slightly more padding */
+    border-radius: 12px; /* Softer radius */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 0 2px #ffcc00; /* Thematic glow/border */
+    max-width: 420px; /* Consistent width */
     width: 90%;
     text-align: center;
-    border: 3px solid #000; /* Solid black border */
+    border: none; /* Removed old border, relying on box-shadow */
 }
 
 .login-container h2 {
-    color: #333; /* Dark color for heading */
+    color: #ffcc00; /* Thematic yellow accent */
     margin-bottom: 1.5em;
-    font-size: 2em;
+    font-size: 2.2em; /* Larger title */
     text-transform: uppercase;
-    text-shadow: 1px 1px 0px #ffcc00, 2px 2px 0px #000; /* Yellow/Black shadow for comic effect */
+    text-shadow: 1px 1px 2px #000; /* Softer shadow */
 }
 
 .login-container form div {
-    margin-bottom: 1.5em; /* Space between form groups */
+    margin-bottom: 1.2em; /* Adjusted spacing */
 }
 
 .login-container label {
     display: block;
-    margin-bottom: 0.5em;
+    margin-bottom: 0.6em;
     text-align: left;
     font-weight: bold;
-    color: #333; /* Dark label text */
+    color: #e0e0e0; /* Light label text */
     font-size: 1em;
 }
 
 .login-container input[type="text"],
 .login-container input[type="password"] {
     width: 100%;
-    padding: 0.8em;
-    border: 2px solid #555; /* Darker border for inputs */
-    border-radius: 4px;
+    padding: 0.9em; /* More padding */
+    border: 1px solid #555; /* Subtle border */
+    border-radius: 6px; /* Softer radius */
     box-sizing: border-box;
     font-size: 1em;
-    background-color: #fff;
-    color: #333;
+    background-color: #2a2a3e; /* Dark input background */
+    color: #fff; /* White text in input */
+    transition: border-color 0.3s ease;
 }
 
 .login-container input[type="text"]:focus,
 .login-container input[type="password"]:focus {
     border-color: #ffcc00; /* Yellow border on focus */
     outline: none;
-    box-shadow: 0 0 5px rgba(255, 204, 0, 0.5);
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.3); /* Subtle glow on focus */
 }
 
 .login-container button[type="submit"] {
-    background-color: #ffcc00; /* Yellow button - theme color */
-    color: #333; /* Dark text */
-    border: 2px solid #000; /* Black border */
-    padding: 0.8em 1em;
-    font-size: 1.1em;
+    background-color: #ffcc00; /* Thematic yellow */
+    color: #1a1a2e; /* Dark text for contrast */
+    border: none; /* Remove border, rely on background */
+    padding: 0.9em 1em;
+    font-size: 1.15em; /* Slightly larger button text */
     font-weight: bold;
     text-transform: uppercase;
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
     width: 100%;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 2px 2px 0px #000; /* Simple shadow for button */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Softer shadow */
 }
 
 .login-container button[type="submit"]:hover {
-    background-color: #e6b800; /* Darker yellow on hover */
+    background-color: #e6b800; /* Darker yellow */
     transform: translateY(-2px);
-    box-shadow: 4px 4px 0px #000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4); /* Enhanced shadow on hover */
 }
 
 .login-container .error-message {
-    /* color: red; is set inline in HTML, but can be overridden or standardized here */
     margin-top: 1em;
     font-size: 0.9em;
     font-weight: bold;
-    min-height: 1em; /* Reserve space even if empty to prevent layout shift */
-    color: #D8000C; /* Explicitly set error color here too */
+    min-height: 1em;
+    padding: 10px; /* Add padding for background visibility */
+    border-radius: 4px;
+    background-color: rgba(220, 53, 69, 0.15); /* Light red background for error */
+    color: #f8d7da; /* Light red/pink text for error for dark theme */
+    border: 1px solid rgba(220, 53, 69, 0.5); /* Subtler border */
 }
 
-.login-container .register-link-paragraph {
-    margin-top: 1.5em; /* Spacing from the form/error message */
-    font-size: 0.9em;
-    color: #333; /* Match other paragraph text if any, or keep it distinct */
+.login-container .register-link-paragraph,
+.login-container p[style*="text-align: center"] /* For the Voltar à Página Inicial */ {
+    margin-top: 1.5em;
+    font-size: 0.95em; /* Slightly larger */
+    color: #ccc; /* Light grey for secondary text */
 }
 
-.login-container .register-link-paragraph a {
-    color: #007bff; /* Standard link blue, can be themed */
-    text-decoration: underline;
+.login-container .register-link-paragraph a,
+.login-container .home-link {
+    color: #ffcc00; /* Thematic yellow for links */
+    text-decoration: none; /* Remove underline by default */
     font-weight: bold;
 }
-
-.login-container .register-link-paragraph a:hover {
-    color: #0056b3; /* Darker blue on hover */
-}
-
 .login-container .home-link {
-    color: #007bff; /* Standard link blue */
-    text-decoration: none; /* No underline by default */
-    font-weight: normal; /* Not bold by default */
-    font-size: 0.9em;
+    font-weight: normal; /* Home link less prominent */
 }
+
+.login-container .register-link-paragraph a:hover,
 .login-container .home-link:hover {
-    text-decoration: underline; /* Underline on hover */
-    color: #0056b3;
+    text-decoration: underline;
+    color: #ffe066; /* Lighter yellow on hover */
 }

@@ -4,100 +4,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const userResultsGrid = document.getElementById('user-results-grid');
     const collectibleResultsGrid = document.getElementById('collectible-results-grid');
 
-    // Get references to the "no results" message paragraphs
-    const noUserResultsMessage = userResultsGrid.querySelector('.no-results-message');
-    const noCollectibleResultsMessage = collectibleResultsGrid.querySelector('.no-results-message');
+    const noUserResultsMessage = userResultsGrid ? userResultsGrid.querySelector('.no-results-message') : null;
+    const noCollectibleResultsMessage = collectibleResultsGrid ? collectibleResultsGrid.querySelector('.no-results-message') : null;
 
     if (!searchForm || !searchQueryInput || !userResultsGrid || !collectibleResultsGrid || !noUserResultsMessage || !noCollectibleResultsMessage) {
-        console.error("Um ou mais elementos essenciais da página de busca não foram encontrados.");
+        console.error("Um ou mais elementos essenciais da página de busca não foram encontrados no DOM.");
+        // Optionally, display a user-facing error message on the page itself
+        const body = document.querySelector('body');
+        if (body) {
+            body.innerHTML = '<p style="color:red; text-align:center; padding-top: 50px;">Erro ao carregar a página de busca. Tente novamente mais tarde.</p>';
+        }
         return;
     }
 
-    searchForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        const query = searchQueryInput.value.trim().toLowerCase();
-
-        // Clear previous results and hide "no results" messages
-        userResultsGrid.innerHTML = ''; // This will also remove the noUserResultsMessage if it was previously appended
-        collectibleResultsGrid.innerHTML = ''; // Same for collectibles
-        noUserResultsMessage.style.display = 'none';
-        noCollectibleResultsMessage.style.display = 'none';
-        // Re-append them so they are there if needed.
-        userResultsGrid.appendChild(noUserResultsMessage);
-        collectibleResultsGrid.appendChild(noCollectibleResultsMessage);
-
-
-        if (!query) {
-            // Optionally, display a message asking for a search term or simply show no results
-            noUserResultsMessage.textContent = "Por favor, digite um termo para buscar.";
-            noUserResultsMessage.style.display = 'block';
-            noCollectibleResultsMessage.textContent = "Por favor, digite um termo para buscar.";
-            noCollectibleResultsMessage.style.display = 'block';
-            return;
-        }
-
-        const usersData = JSON.parse(localStorage.getItem('users')) || [];
-        let foundUsers = [];
-        let foundCollectibles = [];
-
-        // Search Users
-        foundUsers = usersData.filter(user => user.username.toLowerCase().includes(query));
-
-        // Search Collectibles
-        usersData.forEach(user => {
-            if (user.collectibles && user.collectibles.length > 0) {
-                user.collectibles.forEach(collectible => {
-                    if (collectible.name.toLowerCase().includes(query) ||
-                        collectible.source.toLowerCase().includes(query) ||
-                        (collectible.year && collectible.year.toString().includes(query))) { // Added year search
-                        foundCollectibles.push({ ...collectible, ownerUsername: user.username });
-                    }
-                });
-            }
-        });
-
-        renderUserResults(foundUsers);
-        renderCollectibleResults(foundCollectibles);
-    });
-
     function renderUserResults(users) {
-        // Ensure the no-results message is removed if it was the only child
-        if (userResultsGrid.contains(noUserResultsMessage) && users.length > 0) {
-            noUserResultsMessage.style.display = 'none';
+        if (!userResultsGrid.contains(noUserResultsMessage)) { // Ensure it's a child before trying to use it as reference
+            userResultsGrid.appendChild(noUserResultsMessage);
         }
+
+        // Clear previous user items only, not the noUserResultsMessage itself
+        Array.from(userResultsGrid.querySelectorAll('.user-result-item')).forEach(item => item.remove());
 
         if (users.length === 0) {
             noUserResultsMessage.textContent = "Nenhum usuário encontrado.";
             noUserResultsMessage.style.display = 'block';
         } else {
+            noUserResultsMessage.style.display = 'none';
             users.forEach(user => {
                 const userDiv = document.createElement('div');
                 userDiv.classList.add('user-result-item');
-
                 const userLink = document.createElement('a');
-                userLink.href = `profile.html?user=${encodeURIComponent(user.username)}`; // Link to a future profile page
+                userLink.href = `profile.html?user=${encodeURIComponent(user.username)}`;
                 userLink.textContent = user.username;
-
                 userDiv.appendChild(userLink);
-                userResultsGrid.insertBefore(userDiv, noUserResultsMessage); // Insert before the message P
+                userResultsGrid.insertBefore(userDiv, noUserResultsMessage);
             });
         }
     }
 
     function renderCollectibleResults(collectibles) {
-         // Ensure the no-results message is removed if it was the only child
-        if (collectibleResultsGrid.contains(noCollectibleResultsMessage) && collectibles.length > 0) {
-            noCollectibleResultsMessage.style.display = 'none';
+        if (!collectibleResultsGrid.contains(noCollectibleResultsMessage)) {
+             collectibleResultsGrid.appendChild(noCollectibleResultsMessage);
         }
+
+        Array.from(collectibleResultsGrid.querySelectorAll('.collectible-result-item')).forEach(item => item.remove());
 
         if (collectibles.length === 0) {
             noCollectibleResultsMessage.textContent = "Nenhum boneco encontrado.";
             noCollectibleResultsMessage.style.display = 'block';
         } else {
+            noCollectibleResultsMessage.style.display = 'none';
             collectibles.forEach(collectible => {
                 const itemDiv = document.createElement('div');
-                itemDiv.classList.add('collectible-result-item'); // Can be styled like .collectible-item
-
+                itemDiv.classList.add('collectible-result-item');
+                // ... (construct collectible item display as before)
                 const img = document.createElement('img');
                 img.src = collectible.imageUrl;
                 img.alt = collectible.name;
@@ -120,8 +80,83 @@ document.addEventListener('DOMContentLoaded', () => {
                 itemDiv.appendChild(sourceP);
                 itemDiv.appendChild(yearP);
                 itemDiv.appendChild(ownerP);
-                collectibleResultsGrid.insertBefore(itemDiv, noCollectibleResultsMessage); // Insert before the message P
+                collectibleResultsGrid.insertBefore(itemDiv, noCollectibleResultsMessage);
             });
+        }
+    }
+
+    function executeSearch(queryTerm) {
+        const normalizedQuery = queryTerm.trim().toLowerCase();
+
+        // Initial setup for results display
+        if(noUserResultsMessage) noUserResultsMessage.style.display = 'none';
+        if(noCollectibleResultsMessage) noCollectibleResultsMessage.style.display = 'none';
+        // Clear previous items correctly before new search
+        Array.from(userResultsGrid.querySelectorAll('.user-result-item')).forEach(item => item.remove());
+        Array.from(collectibleResultsGrid.querySelectorAll('.collectible-result-item')).forEach(item => item.remove());
+
+
+        if (!normalizedQuery) {
+            if(noUserResultsMessage) {
+                noUserResultsMessage.textContent = "Por favor, digite um termo para buscar.";
+                noUserResultsMessage.style.display = 'block';
+            }
+            if(noCollectibleResultsMessage) {
+                noCollectibleResultsMessage.textContent = "Por favor, digite um termo para buscar.";
+                noCollectibleResultsMessage.style.display = 'block';
+            }
+            return;
+        }
+
+        const usersData = JSON.parse(localStorage.getItem('users')) || [];
+        let foundUsers = [];
+        let foundCollectibles = [];
+
+        foundUsers = usersData.filter(user => user.username.toLowerCase().includes(normalizedQuery));
+
+        usersData.forEach(user => {
+            if (user.collectibles && user.collectibles.length > 0) {
+                user.collectibles.forEach(collectible => {
+                    if (collectible.name.toLowerCase().includes(normalizedQuery) ||
+                        collectible.source.toLowerCase().includes(normalizedQuery) ||
+                        (collectible.year && collectible.year.toString().toLowerCase().includes(normalizedQuery))) {
+                        foundCollectibles.push({ ...collectible, ownerUsername: user.username });
+                    }
+                });
+            }
+        });
+
+        renderUserResults(foundUsers);
+        renderCollectibleResults(foundCollectibles);
+    }
+
+    searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const query = searchQueryInput.value;
+        // Update URL without navigating, to reflect current search
+        const url = new URL(window.location);
+        url.searchParams.set('query', query);
+        window.history.pushState({}, '', url); // Update URL in history
+
+        executeSearch(query);
+    });
+
+    // Auto-search if query param exists on page load
+    const urlParams = new URLSearchParams(window.location.search);
+    const queryFromUrl = urlParams.get('query');
+
+    if (queryFromUrl) {
+        searchQueryInput.value = decodeURIComponent(queryFromUrl); // Pre-fill search box
+        executeSearch(queryFromUrl); // Perform search
+    } else {
+        // If no query in URL, show initial "please search" messages or keep results empty
+        if(noUserResultsMessage) {
+             noUserResultsMessage.textContent = "Digite sua busca acima e clique em 'Buscar'.";
+             noUserResultsMessage.style.display = 'block';
+        }
+        if(noCollectibleResultsMessage) {
+            noCollectibleResultsMessage.textContent = "Resultados de bonecos aparecerão aqui.";
+            noCollectibleResultsMessage.style.display = 'block';
         }
     }
 });

@@ -176,6 +176,14 @@ main h2 {
     color: #333;
     display: flex;
     flex-direction: column;
+    position: relative; /* For z-index on hover */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.collectible-item:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25), 0 6px 10px rgba(0,0,0,0.20); /* Enhanced shadow */
+    z-index: 10;
 }
 
 .collectible-item img {

@@ -137,6 +137,59 @@ body {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
+/* Inline Search Section Styling */
+#inline-search-section {
+    padding: 25px 20px; /* More padding */
+    background-color: rgba(0,0,0,0.25); /* Darker, subtle overlay */
+    text-align: center;
+    border-bottom: 1px solid #444; /* Separator line */
+    /* margin-bottom: 30px; -- Removed, main has margin-top */
+}
+
+#public-inline-search-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 650px; /* Slightly wider search bar */
+    margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3); /* Add shadow to form */
+    border-radius: 5px; /* Rounded corners for the whole form */
+}
+
+#public-inline-search-form input[type="text"] {
+    flex-grow: 1;
+    padding: 12px 18px; /* More padding */
+    font-size: 1.05em; /* Slightly larger font */
+    border: 2px solid #555; /* Darker border */
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    background-color: #fff; /* White background for input */
+    color: #333; /* Dark text for input */
+}
+#public-inline-search-form input[type="text"]:focus {
+    border-color: #ffcc00; /* Thematic highlight */
+    box-shadow: 0 0 8px rgba(255,204,0,0.4);
+}
+
+#public-inline-search-form button[type="submit"] {
+    padding: 12px 25px; /* More padding */
+    font-size: 1.05em; /* Match input */
+    background-color: #ffcc00; /* Thematic button color */
+    color: #1a1a2e; /* Dark text */
+    border: 2px solid #ffcc00; /* Match background */
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+#public-inline-search-form button[type="submit"]:hover {
+    background-color: #e6b800; /* Darker yellow */
+    border-color: #e6b800;
+}
+
+
 /* Main Content Area */
 main {
     flex-grow: 1;
@@ -172,11 +225,14 @@ main {
     color: #e0e0e0;
     display: flex;
     flex-direction: column;
-    transition: transform 0.2s ease-in-out;
+    position: relative; /* For z-index */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
 .collectible-item:hover {
-    transform: translateY(-5px);
+    transform: scale(1.05) translateY(-5px); /* Slight lift and scale */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 223, 0, 0.25); /* Darker shadow + gold glow */
+    z-index: 10; /* Ensure it comes above neighbors */
 }
 
 .collectible-item img {
@@ -314,6 +370,31 @@ footer {
     #global-gallery-section h2 { font-size: 1.6em; }
     .collection-grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
     .collectible-item img { height: 180px; }
+
+    /* Responsive Adjustments for inline search */
+    #inline-search-section {
+        padding: 20px 15px;
+    }
+    #public-inline-search-form {
+        flex-direction: column; /* Stack input and button */
+        gap: 10px;
+        box-shadow: none; /* Remove shadow when stacked */
+    }
+    #public-inline-search-form input[type="text"],
+    #public-inline-search-form button[type="submit"] {
+        width: 100%; /* Full width for stacked elements */
+        border-radius: 5px; /* Full rounded corners for both */
+        border-left: 2px solid #555; /* Restore left border for input */
+    }
+    #public-inline-search-form input[type="text"]:focus {
+        border-color: #ffcc00; /* Keep focus consistent */
+    }
+    #public-inline-search-form button[type="submit"] {
+         border-left: 2px solid #ffcc00; /* Restore border for button */
+    }
+     #public-inline-search-form button[type="submit"]:hover {
+        border-left: 2px solid #e6b800; /* Match hover border color */
+    }
 }
 
 @media (max-width: 480px) {

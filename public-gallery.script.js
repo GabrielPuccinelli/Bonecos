@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const publicHeaderProfileImage = document.getElementById('public-header-profile-image');
     const publicHeaderUsername = document.getElementById('public-header-username');
 
+    // For inline search
+    const inlineSearchForm = document.getElementById('public-inline-search-form');
+    const inlineSearchQueryInput = document.getElementById('public-inline-search-query');
+
 
     let allCollectibles = [];
     let currentPage = 1;
@@ -29,7 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderGalleryPage(pageNumber) {
         currentPage = pageNumber;
-        globalCollectionGrid.innerHTML = '';
+        if(globalCollectionGrid) globalCollectionGrid.innerHTML = ''; // Guard against missing element
+        else { console.error("globalCollectionGrid not found for renderGalleryPage"); return; }
+
 
         if (allCollectibles.length === 0) {
             globalCollectionGrid.innerHTML = '<p style="text-align:center; color:#ccc; padding: 20px;">Ainda não há nenhum boneco na galeria global. Seja o primeiro a cadastrar!</p>';
@@ -125,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileMenuToggle.addEventListener('click', () => {
             publicNav.classList.toggle('active');
         });
+    } else {
+        console.warn("Mobile menu toggle or public nav not found.");
     }
 
     function updateUserSpecificHeader() {
@@ -140,17 +148,16 @@ document.addEventListener('DOMContentLoaded', () => {
             let users = JSON.parse(localStorage.getItem('users')) || [];
             let loggedInUser = users.find(user => user.username === currentUsername);
 
-            // Clear existing public links and add authenticated user links
             publicNav.innerHTML = '';
 
             const myGalleryLink = document.createElement('a');
-            myGalleryLink.href = 'dashboard.html'; // Link to dashboard.html
+            myGalleryLink.href = 'dashboard.html';
             myGalleryLink.textContent = 'Minha Galeria';
             publicNav.appendChild(myGalleryLink);
 
             const searchLink = document.createElement('a');
             searchLink.href = 'search.html';
-            searchLink.textContent = 'Buscar';
+            searchLink.textContent = 'Buscar'; // This is the main search page link
             publicNav.appendChild(searchLink);
 
             const aboutLink = document.createElement('a');
@@ -166,24 +173,22 @@ document.addEventListener('DOMContentLoaded', () => {
             const logoutButton = document.createElement('a');
             logoutButton.href = '#';
             logoutButton.textContent = 'Logout';
-            logoutButton.id = 'public-gallery-logout-btn'; // Can be styled like other nav links
+            logoutButton.id = 'public-gallery-logout-btn';
             logoutButton.addEventListener('click', (e) => {
                 e.preventDefault();
                 sessionStorage.removeItem('loggedIn');
                 sessionStorage.removeItem('currentUser');
-                updateUserSpecificHeader(); // Re-render header to public state
-                // Optionally, redirect to public-gallery.html or login.html
+                updateUserSpecificHeader();
                 window.location.href = 'public-gallery.html';
             });
             publicNav.appendChild(logoutButton);
 
-            // Display user profile info
             if (loggedInUser) {
                 publicHeaderUsername.textContent = loggedInUser.username;
                 if (loggedInUser.profileImageUrl) {
                     publicHeaderProfileImage.src = loggedInUser.profileImageUrl;
                 } else {
-                    publicHeaderProfileImage.src = 'https://via.placeholder.com/30x30.png?text=P'; // Default placeholder
+                    publicHeaderProfileImage.src = 'https://via.placeholder.com/30x30.png?text=P';
                 }
                 userProfileHeaderInfoPublic.style.display = 'flex';
             } else {
@@ -191,8 +196,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
         } else {
-            // Ensure standard public links are there (they are in HTML, but if JS clears nav, we need to restore)
-            // This part ensures that if the user logs out on this page, the header reverts.
             userProfileHeaderInfoPublic.style.display = 'none';
             publicNav.innerHTML = `
                 <a href="search.html" id="nav-search-public-link">Buscar</a>
@@ -204,7 +207,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Inline Search Form Logic
+    if (inlineSearchForm && inlineSearchQueryInput) {
+        inlineSearchForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const query = inlineSearchQueryInput.value.trim();
+            if (query) {
+                window.location.href = `search.html?query=${encodeURIComponent(query)}`;
+            }
+        });
+    } else {
+        console.warn("Formulário de busca inline não encontrado.");
+    }
+
+    // Initial Load Logic
     fetchAllCollectibles();
-    renderGalleryPage(1);
-    updateUserSpecificHeader(); // Call on page load
+    if (globalCollectionGrid) { // Only render if grid exists
+        renderGalleryPage(1);
+    }
+    updateUserSpecificHeader();
 });
