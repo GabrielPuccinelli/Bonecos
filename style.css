@@ -219,6 +219,26 @@ main h2 { /* Section titles like "Meus Colecionáveis" */
     text-transform: uppercase;
 }
 
+.collectible-item .chat-btn { /* Style for "Ver Conversas" button */
+    background-color: #007bff; /* Blue, similar to search link */
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-transform: uppercase;
+    flex-grow: 1; /* Allow to take space if needed, or set specific width */
+    margin-top: 5px; /* If buttons are stacked or if it's the only button apart from edit/delete */
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.collectible-item .chat-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+
 .collectible-item .edit-btn {
     background-color: #ffcc00;
     color: #1a1a2e; /* Dark text */
@@ -284,6 +304,29 @@ main h2 { /* Section titles like "Meus Colecionáveis" */
     color: #e0e0e0;
     font-size: 0.95em; /* Slightly smaller label for checkbox */
     text-shadow: none; /* Usually not needed for checkbox labels */
+}
+
+#upload-form select#collectible-condition {
+    width: 100%;
+    padding: 10px;
+    background-color: #2a2a3e; /* Dark input background */
+    color: #fff; /* Light text */
+    border: 1px solid #555;
+    border-radius: 4px; /* Should be 5px to match other inputs */
+    font-family: inherit;
+    font-size: 1em; /* Match other inputs */
+    /* margin-bottom: 10px; -- Handled by form gap or div wrapper margin */
+    appearance: none; /* Basic style reset for select */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23e0e0e0%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.4-12.9z%22%2F%3E%3C%2Fsvg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px; /* Adjust size of the arrow */
+    padding-right: 30px; /* Make space for the arrow */
+}
+#upload-form select#collectible-condition:focus {
+    border-color: #ffcc00;
+    outline: none;
+    box-shadow: 0 0 8px rgba(255, 204, 0, 0.3);
 }
 
 
@@ -438,4 +481,202 @@ main h2 { /* Section titles like "Meus Colecionáveis" */
     .collectible-item button.delete-btn {
         margin-bottom: 0;
     }
+}
+
+/* Chat Modal Styling */
+.chat-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.75); /* Darker overlay */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; /* High z-index */
+    opacity: 0; /* Initially hidden for transition */
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.chat-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.chat-modal-content {
+    background-color: #2a2a3e; /* Dark card background */
+    color: #e0e0e0;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 550px; /* Slightly wider modal */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    position: relative;
+    border: 1px solid #ffcc00; /* Thematic border */
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh; /* Limit height */
+    transform: scale(0.9); /* Initial state for transition */
+    transition: transform 0.3s ease;
+}
+.chat-modal-overlay.active .chat-modal-content {
+    transform: scale(1);
+}
+
+
+.close-chat-modal-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 2em; /* Larger close button */
+    color: #aaa;
+    background: none;
+    border: none;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0 5px;
+}
+.close-chat-modal-btn:hover { color: #fff; }
+
+#chat-modal-title {
+    color: #ffcc00;
+    margin-top: 0;
+    margin-bottom: 15px; /* Increased space */
+    padding-bottom: 10px;
+    border-bottom: 1px solid #444; /* Separator */
+    font-size: 1.5em;
+}
+
+.chat-modal-item-info {
+    display: flex;
+    align-items: center;
+    margin-bottom:15px;
+    padding-bottom:15px;
+    border-bottom:1px solid #444;
+    gap: 10px; /* Gap between image and text */
+}
+#chat-modal-item-image {
+    /* width: 50px; height: 50px; border-radius: 4px; -- from inline */
+    object-fit: cover;
+}
+#chat-modal-item-name {
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.chat-messages-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 15px; /* Padding inside scroll area */
+    background-color: rgba(0,0,0,0.25);
+    border-radius: 4px;
+    min-height: 150px; /* Minimum height */
+}
+
+/* Individual message styling */
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    word-wrap: break-word;
+    line-height: 1.4;
+    max-width: 75%; /* Max width for message bubbles */
+}
+.chat-message.sent {
+    background-color: #007bff; /* Blue for sent */
+    color: white;
+    margin-left: auto;
+    text-align: left; /* Text align left within bubble */
+    border-bottom-right-radius: 0; /* "Tail" effect */
+}
+.chat-message.received {
+    background-color: #3a3a4e; /* Darker grey for received */
+    color: #e0e0e0;
+    margin-right: auto;
+    text-align: left;
+    border-bottom-left-radius: 0; /* "Tail" effect */
+}
+.chat-message .msg-sender-name { /* Class for sender name */
+    font-size: 0.75em;
+    color: #ffcc00; /* Yellow for sender name */
+    display:block;
+    margin-bottom:3px;
+    font-weight: bold;
+}
+.chat-message .msg-timestamp { /* Class for timestamp */
+    font-size: 0.7em;
+    color: #aaa;
+    display: block;
+    margin-top: 4px;
+    text-align: inherit; /* Inherit from parent .sent or .received */
+}
+
+
+.chat-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px; /* Space above form */
+}
+.chat-form textarea {
+    flex-grow: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #555;
+    background-color: #1a1a2e;
+    color: #fff;
+    resize: none; /* Disable manual resize, use rows attribute */
+    min-height: 45px; /* Ensure it's not too small */
+    font-family: inherit;
+    font-size: 0.95em;
+}
+.chat-form textarea:focus {
+    outline: none;
+    border-color: #ffcc00;
+    box-shadow: 0 0 5px rgba(255,204,0,0.4);
+}
+
+.chat-form button { /* Re-using .sidebar-button-style or a specific style */
+    /* background-color: #ffcc00; color: #1a1a2e; from .sidebar-button-style */
+    /* padding: 10px 15px; from .sidebar-button-style */
+    white-space:nowrap;
+    border: 1px solid #1a1a2e; /* Match other buttons */
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.chat-form button:hover {
+    /* transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.4); from .sidebar-button-style */
+}
+
+/* Ensure sidebar-button-style if used on chat submit button is defined or copied */
+.sidebar-button-style { /* Example if this class is used on chat submit */
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    padding: 10px 15px;
+    /* ... other common button styles ... */
+}
+.sidebar-button-style:hover {
+    background-color: #e6b800;
+}
+
+/* Unread badge styling (for sidebar, if used on these pages) */
+.unread-badge {
+    background-color: red;
+    color: white;
+    font-size: 0.75em;
+    padding: 1px 5px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: text-top;
+    font-weight: bold;
+    display: none; /* Initially hidden, shown by JS */
+}
+/* Ensure sidebar button can relatively position the badge */
+#main-nav .sidebar-button, /* If sidebar buttons are in main-nav (unlikely) */
+.sidebar-nav .sidebar-button { /* More likely target if sidebar HTML is added */
+    position: relative;
 }

@@ -9,25 +9,51 @@
     <!-- <link rel="stylesheet" href="style.css"> -->
 </head>
 <body>
-    <header class="page-header">
-        <h1 id="profile-username-display">Perfil de Usuário</h1>
-        <nav>
-            <a href="index.html" class="nav-link">Página Inicial</a> |
-            <a href="search.html" class="nav-link">Página de Busca</a>
-        </nav>
-    </header>
+    <!-- Sidebar could be added here if profile page should have it when user is logged in -->
+    <!-- <aside id="user-sidebar" style="display: none;">...</aside> -->
 
-    <main class="profile-main-content">
-        <section id="profile-collectibles-section">
-            <h2>Colecionáveis de <span id="profile-username-collectibles-title">[Usuário]</span>:</h2>
-            <p id="profile-collectible-count-display" class="collectible-count"></p>
-            <div id="profile-collection-grid" class="collection-grid">
-                <!-- Collectibles of the profile user will be populated here -->
-                <p class="no-results-message" style="display:none;">Este usuário ainda não adicionou nenhum boneco.</p>
+    <!-- <div id="page-content-wrapper"> --> <!-- Wrapper would also be needed if sidebar is used -->
+        <header class="page-header">
+            <h1 id="profile-username-display">Perfil de Usuário</h1>
+            <nav>
+                <a href="index.html" class="nav-link">Página Inicial</a> |
+                <a href="search.html" class="nav-link">Página de Busca</a>
+            </nav>
+        </header>
+
+        <main class="profile-main-content">
+            <section id="profile-collectibles-section">
+                <h2>Colecionáveis de <span id="profile-username-collectibles-title">[Usuário]</span>:</h2>
+                <p id="profile-collectible-count-display" class="collectible-count"></p>
+                <div id="profile-collection-grid" class="collection-grid">
+                    <!-- Collectibles of the profile user will be populated here -->
+                    <p class="no-results-message" style="display:none;">Este usuário ainda não adicionou nenhum boneco.</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- A footer could also be added here for consistency -->
+    <!-- </div> --> <!-- End of page-content-wrapper -->
+
+    <div id="chat-modal-overlay" class="chat-modal-overlay" style="display:none;">
+        <div id="chat-modal-content" class="chat-modal-content">
+            <button id="close-chat-modal-btn" class="close-chat-modal-btn">&times;</button>
+            <h3 id="chat-modal-title">Conversa sobre...</h3>
+            <div id="chat-modal-item-info" class="chat-modal-item-info">
+                <img src="#" alt="Item" id="chat-modal-item-image" style="max-width:50px; max-height:50px; border-radius:4px; margin-right:10px;">
+                <span id="chat-modal-item-name"></span>
             </div>
-        </section>
-    </main>
+            <div id="chat-modal-messages" class="chat-messages-container">
+                <!-- Messages will be populated here -->
+            </div>
+            <form id="chat-modal-form" class="chat-form">
+                <textarea id="chat-modal-input" placeholder="Digite sua mensagem..." rows="3" required></textarea>
+                <button type="submit" class="sidebar-button-style">Enviar</button> <!-- Consider specific chat submit button style -->
+            </form>
+        </div>
+    </div>
 
     <script src="profile.script.js"></script>
+    <!-- If chat modal JS is separate and common, link it here too -->
 </body>
 </html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Mensagens - Portal de Colecionáveis</title>
+    <!-- Link to a common stylesheet for header/footer/sidebar if available, or specific one -->
+    <link rel="stylesheet" href="public-gallery.style.css"> <!-- Using this for consistent dark theme and sidebar styles -->
+    <link rel="stylesheet" href="messages.style.css">
+</head>
+<body>
+    <aside id="user-sidebar" style="display: none;">
+        <div class="sidebar-profile-info">
+            <img id="sidebar-profile-image" src="https://via.placeholder.com/80x80.png?text=Perfil" alt="Imagem de Perfil">
+            <h3 id="sidebar-username">[Nome do Usuário]</h3>
+        </div>
+        <div class="sidebar-stats">
+            <p>Bonecos: <span id="sidebar-collectible-count">0</span></p>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="dashboard.html" class="sidebar-button">Adicionar/Gerenciar</a>
+            <a href="edit-profile.html" class="sidebar-button">Editar Perfil</a>
+            <a href="messages.html" class="sidebar-button active" id="sidebar-messages-link"> <!-- Mark as active -->
+                Mensagens <span id="sidebar-unread-badge" class="unread-badge" style="display:none;">0</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div id="page-content-wrapper">
+        <!-- Standard Logged-in Header (Can be populated by a shared JS function or duplicated) -->
+        <header id="main-header-public"> <!-- Re-using public header structure for consistency -->
+            <div class="logo-container">
+                <a href="index.html" id="logo-text">PortalColecionaveis</a>
+            </div>
+            <div id="user-profile-header-info-public" style="display: none; align-items: center; gap: 10px; margin-left: 15px; order: 1;">
+                <img id="public-header-profile-image" src="#" alt="Perfil" style="width: 30px; height: 30px; border-radius: 50%; border: 1px solid #fff;">
+                <span id="public-header-username" style="color: white; font-weight: bold;"></span>
+            </div>
+            <nav id="public-nav" style="order: 2;">
+                <!-- Nav links will be populated by JS based on login state -->
+            </nav>
+            <button id="mobile-menu-toggle" aria-label="Abrir menu" style="order: 3;">☰</button>
+        </header>
+
+        <main class="messages-container-main">
+            <h1>Minhas Mensagens</h1>
+            <div id="messages-layout">
+                <div id="conversations-list-panel">
+                    <h2>Conversas</h2>
+                    <div id="conversations-list">
+                        <!-- Conversation list items will be populated here -->
+                        <p>Carregando conversas...</p>
+                    </div>
+                </div>
+                <div id="message-detail-panel">
+                    <h2 id="message-detail-header">Selecione uma conversa</h2>
+                    <div id="message-detail-item-info" class="chat-modal-item-info" style="display:none;">
+                        <img src="#" alt="Item" id="message-detail-item-image">
+                        <span id="message-detail-item-name"></span>
+                    </div>
+                    <div id="message-detail-view" class="chat-messages-container">
+                        <!-- Detailed messages of a selected conversation will be shown here -->
+                        <p>Nenhuma conversa selecionada.</p>
+                    </div>
+                    <form id="reply-form" class="chat-form" style="display:none;">
+                        <textarea id="reply-message-input" placeholder="Digite sua resposta..." rows="3" required></textarea>
+                        <button type="submit" class="sidebar-button-style">Responder</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2023 Portal de Colecionáveis. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <script src="public-gallery.script.js"></script> <!-- For sidebar and header UI updates -->
+    <script src="messages.script.js"></script>
+</body>
+</html>

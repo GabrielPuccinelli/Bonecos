@@ -123,6 +123,14 @@ body {
     flex-grow: 0; /* Ensure text doesn't grow excessively, allowing indicator to be placed after */
 }
 
+.collectible-item .collectible-detail-condition {
+    font-size: 0.8em; /* Match .for-trade-indicator */
+    color: #555; /* Dark grey for light card */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left; /* Or center */
+}
+
 .collectible-item .for-trade-indicator {
     background-color: #28a745; /* Green to indicate 'available' or 'for trade' */
     color: white;
@@ -135,6 +143,36 @@ body {
     align-self: center; /* Center it if the card is wider */
     max-width: 150px;
 }
+
+.collectible-item .chat-btn,
+.collectible-item .login-to-chat-link {
+    background-color: #007bff; /* Blue, distinct */
+    color: white;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 0.85em;
+    display: inline-block;
+    align-self: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.collectible-item .chat-btn:hover,
+.collectible-item .login-to-chat-link:hover {
+    background-color: #0056b3;
+    color: white;
+}
+.collectible-item .login-to-chat-link {
+    background-color: #17a2b8; /* Teal for login prompt */
+}
+.collectible-item .login-to-chat-link:hover {
+    background-color: #117a8b;
+}
+
 /* End of copied styles */
 
 .no-results-message {

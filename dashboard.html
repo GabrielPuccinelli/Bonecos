@@ -52,6 +52,13 @@
                     <label for="image-upload">Imagem do Boneco:</label>
                     <input type="file" id="image-upload" name="image-upload" accept="image/*">
                 </div>
+                <div class="form-group">
+                    <label for="collectible-condition">Condição:</label>
+                    <select id="collectible-condition" name="collectible-condition">
+                        <option value="novo">Novo</option>
+                        <option value="usado">Usado</option>
+                    </select>
+                </div>
                 <img id="image-preview" src="#" alt="Pré-visualização da imagem" style="display: none;">
                 <div class="form-group form-group-checkbox"> <!-- New class for styling -->
                     <input type="checkbox" id="collectible-for-trade" name="collectible-for-trade">
@@ -62,6 +69,25 @@
             </form>
         </section>
     </main>
+
+    <div id="chat-modal-overlay" class="chat-modal-overlay" style="display:none;">
+        <div id="chat-modal-content" class="chat-modal-content">
+            <button id="close-chat-modal-btn" class="close-chat-modal-btn">&times;</button>
+            <h3 id="chat-modal-title">Conversa sobre...</h3>
+            <div id="chat-modal-item-info" class="chat-modal-item-info">
+                <img src="#" alt="Item" id="chat-modal-item-image" style="max-width:50px; max-height:50px; border-radius:4px; margin-right:10px;">
+                <span id="chat-modal-item-name"></span>
+            </div>
+            <div id="chat-modal-messages" class="chat-messages-container">
+                <!-- Messages will be populated here -->
+            </div>
+            <form id="chat-modal-form" class="chat-form">
+                <textarea id="chat-modal-input" placeholder="Digite sua mensagem..." rows="3" required></textarea>
+                <button type="submit" class="sidebar-button-style">Enviar</button> <!-- Consider specific chat submit button style -->
+            </form>
+        </div>
+    </div>
+
     <script src="script.js"></script> <!-- This is the script for dashboard functionalities -->
 </body>
 </html>

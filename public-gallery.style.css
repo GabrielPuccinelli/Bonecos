@@ -83,6 +83,22 @@ body {
     transform: translateY(-1px);
 }
 
+.sidebar-button#sidebar-messages-link { /* Target the specific button if badge is inside */
+    position: relative; /* For positioning the badge */
+}
+
+.unread-badge {
+    background-color: red;
+    color: white;
+    font-size: 0.75em; /* Smaller font for badge */
+    padding: 1px 5px; /* Small padding */
+    border-radius: 10px; /* Make it more rounded or circular */
+    margin-left: 8px; /* Space from "Mensagens" text */
+    vertical-align: text-top; /* Align with top of text */
+    font-weight: bold;
+    /* display: none; -- controlled by JS */
+}
+
 /* Page Content Wrapper - for shifting content when sidebar is active */
 #page-content-wrapper {
     flex-grow: 1; /* Takes remaining space */
@@ -215,6 +231,73 @@ body {
     text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
+/* Gallery Filters Styling */
+#gallery-filters {
+    background-color: rgba(0,0,0,0.2); /* Subtle dark background */
+    padding: 20px;
+    margin: 0 auto 25px auto; /* Centered, with bottom margin */
+    border-radius: 8px;
+    text-align: center;
+    max-width: 800px; /* Max width for filter section */
+    border: 1px solid #333;
+}
+
+#gallery-filters h3 {
+    color: #ffcc00;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.4em;
+    text-transform: uppercase;
+}
+
+.filter-controls-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* Gap between filter groups */
+    flex-wrap: wrap; /* Allow filters to wrap on smaller screens */
+    margin-bottom: 15px;
+}
+
+.filter-group {
+    display: flex; /* Align label and select nicely */
+    align-items: center;
+    gap: 8px;
+    /* margin: 0 10px 10px 10px; -- Handled by wrapper gap */
+}
+
+.filter-group label {
+    margin-right: 0; /* Gap handles spacing */
+    color: #e0e0e0;
+    font-weight: bold;
+    font-size: 0.95em;
+}
+
+.filter-group select {
+    padding: 10px 12px; /* Increased padding */
+    background-color: #2a2a3e; /* Dark input background */
+    color: #fff; /* Light text */
+    border: 1px solid #555;
+    border-radius: 5px; /* Consistent radius */
+    font-family: inherit;
+    font-size: 0.95em;
+    min-width: 150px; /* Give selects some base width */
+}
+.filter-group select:focus {
+    outline: none;
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255,204,0,0.3);
+}
+
+#apply-filters-btn {
+    /* Reuses .sidebar-button styles from HTML, can add overrides here if needed */
+    /* Example: make it slightly smaller for this context if default is too large */
+    padding: 10px 20px;
+    font-size: 1em;
+    margin-top: 10px; /* Space from filter dropdowns */
+}
+
+
 /* Inline Search Section Styling */
 #inline-search-section {
     padding: 25px 20px;
@@ -342,6 +425,14 @@ main { /* This main is inside page-content-wrapper */
     text-align: right;
 }
 
+.collectible-item .collectible-detail-condition {
+    font-size: 0.85em;
+    color: #b0b0d0; /* Lighter purple/blue for dark theme cards */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left; /* Or center if preferred */
+}
+
 .collectible-item .for-trade-indicator {
     background-color: #ffcc00; /* Thematic yellow */
     color: #1a1a2e; /* Dark text */
@@ -354,6 +445,35 @@ main { /* This main is inside page-content-wrapper */
     align-self: flex-start; /* Align to the start of the cross axis (if item is flex column) */
     /* Or use align-self: center; if preferred */
     max-width: fit-content; /* Take only needed width */
+}
+
+.collectible-item .chat-btn,
+.collectible-item .login-to-chat-link {
+    background-color: #007bff; /* Blue, distinct from trade indicator */
+    color: white;
+    text-decoration: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 10px; /* Space from other details or trade indicator */
+    font-weight: bold;
+    font-size: 0.85em;
+    display: inline-block; /* Or block if it should take full width */
+    align-self: center; /* Center the button/link */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.collectible-item .chat-btn:hover,
+.collectible-item .login-to-chat-link:hover {
+    background-color: #0056b3; /* Darker blue */
+    color: white;
+}
+.collectible-item .login-to-chat-link {
+    background-color: #17a2b8; /* Teal for login prompt */
+}
+.collectible-item .login-to-chat-link:hover {
+    background-color: #117a8b;
 }
 
 
@@ -505,4 +625,101 @@ footer {
 @media (max-width: 480px) {
     .collection-grid { grid-template-columns: 1fr; }
     #pagination-controls button, #pagination-controls span.page-number { padding: 6px 10px; margin: 0 3px; font-size: 0.9em; }
+}
+
+/* Chat Modal Styling (Copied/Adapted from style.css) */
+.chat-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.75);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2000;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.chat-modal-overlay.active {
+    opacity: 1; visibility: visible;
+}
+.chat-modal-content {
+    background-color: #2a2a3e;
+    color: #e0e0e0; padding: 25px; border-radius: 8px;
+    width: 90%; max-width: 550px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    position: relative; border: 1px solid #ffcc00;
+    display: flex; flex-direction: column; max-height: 85vh;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+.chat-modal-overlay.active .chat-modal-content {
+    transform: scale(1);
+}
+.close-chat-modal-btn {
+    position: absolute; top: 10px; right: 15px; font-size: 2em;
+    color: #aaa; background: none; border: none; cursor: pointer;
+    line-height: 1; padding: 0 5px;
+}
+.close-chat-modal-btn:hover { color: #fff; }
+#chat-modal-title {
+    color: #ffcc00; margin-top: 0; margin-bottom: 15px;
+    padding-bottom: 10px; border-bottom: 1px solid #444;
+    font-size: 1.5em;
+}
+.chat-modal-item-info {
+    display: flex; align-items: center; margin-bottom:15px;
+    padding-bottom:15px; border-bottom:1px solid #444;
+    gap: 10px;
+}
+#chat-modal-item-image { object-fit: cover; }
+#chat-modal-item-name { font-weight: bold; font-size: 1.1em; }
+.chat-messages-container {
+    flex-grow: 1; overflow-y: auto; margin-bottom: 15px;
+    padding: 15px; background-color: rgba(0,0,0,0.25);
+    border-radius: 4px; min-height: 150px;
+}
+.chat-message {
+    margin-bottom: 10px; padding: 10px 12px; border-radius: 8px;
+    word-wrap: break-word; line-height: 1.4; max-width: 75%;
+}
+.chat-message.sent {
+    background-color: #007bff; color: white;
+    margin-left: auto; text-align: left;
+    border-bottom-right-radius: 0;
+}
+.chat-message.received {
+    background-color: #3a3a4e; color: #e0e0e0;
+    margin-right: auto; text-align: left;
+    border-bottom-left-radius: 0;
+}
+.chat-message .msg-sender-name {
+    font-size: 0.75em; color: #ffcc00;
+    display:block; margin-bottom:3px; font-weight: bold;
+}
+.chat-message .msg-timestamp {
+    font-size: 0.7em; color: #aaa; display: block;
+    margin-top: 4px; text-align: inherit;
+}
+.chat-form { display: flex; gap: 10px; margin-top: 10px; }
+.chat-form textarea {
+    flex-grow: 1; padding: 10px; border-radius: 5px;
+    border: 1px solid #555; background-color: #1a1a2e;
+    color: #fff; resize: none; min-height: 45px;
+    font-family: inherit; font-size: 0.95em;
+}
+.chat-form textarea:focus {
+    outline: none; border-color: #ffcc00;
+    box-shadow: 0 0 5px rgba(255,204,0,0.4);
+}
+.chat-form button {
+    white-space:nowrap; border: 1px solid #1a1a2e;
+    font-weight: bold; text-transform: uppercase;
+    font-size: 0.9rem; box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    /* Assuming .sidebar-button-style is used for base colors/padding */
+}
+/* Ensure .sidebar-button-style is defined if used on chat submit, or copy its relevant props */
+.sidebar-button-style {
+    background-color: #ffcc00; color: #1a1a2e;
+    padding: 10px 15px; border-radius:5px; /* Example */
+    /* ... other common button styles ... */
+}
+.sidebar-button-style:hover {
+    background-color: #e6b800;
 }

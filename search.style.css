@@ -5,206 +5,490 @@
     box-sizing: border-box;
 }
 
+html, body { /* Ensure html also takes full height for sticky footer patterns */
+    min-height: 100%;
+}
+
 body {
     font-family: 'Arial', sans-serif;
-    background: radial-gradient(circle at top left, #007bff 0%, #00c6ff 50%, #A0D2DB 100%); /* Different, lighter comic-inspired gradient */
-    color: #333;
-    min-height: 100vh;
-    padding: 20px;
+    background-color: #1a1a2e; /* Dark theme background */
+    color: #e0e0e0; /* Default light text */
+    /* min-height: 100vh; -- Already above */
+    padding: 0; /* Remove body padding if sidebar is fixed and wrapper handles content padding */
+    display: flex; /* For sidebar layout */
+    /* flex-direction: column; -- Removed, now row for sidebar + content wrapper */
+    /* align-items: center; -- Removed, content wrapper will handle its own alignment */
+}
+
+/* Sidebar Styling (Common - copied from public-gallery.style.css) */
+#user-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100vh;
+    background-color: #111827;
+    padding: 25px 15px;
+    box-shadow: 2px 0 8px rgba(0,0,0,0.6);
+    z-index: 1001;
+    color: #e0e0e0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border-right: 1px solid #ffcc00;
+    overflow-y: auto;
 }
 
+.sidebar-profile-info {
+    text-align: center;
+    margin-bottom: 25px;
+}
+#sidebar-profile-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #ffcc00;
+    margin-bottom: 12px;
+    object-fit: cover;
+}
+#sidebar-username {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #ffcc00;
+}
+.sidebar-stats p {
+    margin-bottom: 20px;
+    font-size: 0.95em;
+    color: #ccc;
+}
+.sidebar-nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.sidebar-button {
+    display: block;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-size: 0.95em;
+}
+.sidebar-button:hover {
+    background-color: #e6b800;
+    transform: translateY(-1px);
+}
+.sidebar-button#sidebar-messages-link {
+    position: relative;
+}
+.unread-badge {
+    background-color: red;
+    color: white;
+    font-size: 0.75em;
+    padding: 1px 5px;
+    border-radius: 10px;
+    margin-left: 8px;
+    vertical-align: text-top;
+    font-weight: bold;
+}
+
+/* Page Content Wrapper */
+#page-content-wrapper {
+    flex-grow: 1;
+    margin-left: 0; /* Default when sidebar is hidden */
+    transition: margin-left 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 20px; /* Add padding here instead of body */
+    align-items: center; /* Center content like .page-header, .search-container */
+}
+#page-content-wrapper.sidebar-active {
+    margin-left: 250px;
+}
+
+
+/* Header area within search.html - simplified */
 .page-header {
     width: 100%;
     max-width: 900px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    background-color: rgba(255, 255, 255, 0.85);
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    text-align: center;
     margin-bottom: 30px;
-    border: 2px solid #000;
+    padding: 15px;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 8px;
 }
 
 .page-header h1 {
-    color: #0056b3; /* Thematic blue */
-    font-size: 1.8em;
-    text-shadow: 1px 1px 0px #fff;
+    color: #ffcc00;
+    font-size: 2em;
+    margin-bottom: 15px;
+    text-shadow: 1px 1px 2px #000;
 }
 
 .page-header .nav-link {
-    background-color: #007bff;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 5px;
-    text-decoration: none;
+    color: #ffcc00;
+    text-decoration: underline;
+    font-size: 1em;
     font-weight: bold;
-    transition: background-color 0.3s ease;
+}
+.page-header .nav-link:hover {
+    color: #ffe066;
 }
 
-.page-header .nav-link:hover {
-    background-color: #0056b3;
-}
 
 .search-container {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(0, 0, 0, 0.3);
     padding: 25px;
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     width: 100%;
     max-width: 700px;
     margin-bottom: 30px;
-    border: 2px solid #000;
+    border: 1px solid #444;
 }
 
 #search-form {
     display: flex;
-    gap: 10px;
+    gap: 0;
 }
 
 #search-form input[type="text"] {
     flex-grow: 1;
-    padding: 12px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+    padding: 12px 15px;
+    font-size: 1.05em;
+    border: 2px solid #555;
+    border-right: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    background-color: #2a2a3e;
+    color: #fff;
 }
 
 #search-form input[type="text"]:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    border-color: #ffcc00;
+    box-shadow: 0 0 8px rgba(255,204,0,0.3);
+    z-index: 2;
+    position: relative;
 }
 
 #search-form button[type="submit"] {
-    background-color: #007bff; /* Primary button color */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1em;
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    border: 2px solid #ffcc00;
+    padding: 12px 20px;
+    border-radius: 0 5px 5px 0;
+    font-size: 1.05em;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 #search-form button[type="submit"]:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #e6b800;
+    border-color: #e6b800;
 }
 
 .results-container {
     width: 100%;
     max-width: 900px;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border: 1px solid #ddd;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
 }
 
+.results-container section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+
 .results-container section h2 {
-    font-size: 1.5em;
-    color: #333;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 5px;
+    font-size: 1.8em;
+    color: #ffcc00;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 10px;
+    text-shadow: 1px 1px 1px #000;
 }
 
 .results-divider {
-    margin: 30px 0;
-    border: 0;
-    border-top: 2px dashed #ccc;
+    display: none;
 }
 
 .results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding-top: 10px;
 }
 
 /* Styling for User Result Item */
 .user-result-item {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-left: 5px solid #007bff; /* Accent border */
+    background-color: #2a2a3e;
+    border: 1px solid #505070;
     padding: 15px;
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    transition: background-color 0.2s ease;
+}
+.user-result-item:hover {
+    background-color: #3a3a4e;
 }
 
 .user-result-item a {
     font-size: 1.2em;
-    color: #007bff;
+    color: #ffcc00;
     text-decoration: none;
     font-weight: bold;
 }
 
 .user-result-item a:hover {
     text-decoration: underline;
+    color: #ffe066;
 }
 
-/* Styling for Collectible Result Item (can reuse .collectible-item from main style.css if linked, or define here) */
-.collectible-result-item {
-    background-color: #fff;
-    border: 1px solid #ddd;
+/* Styling for Collectible Result Item - Copied and adapted from style.css dark theme for .collectible-item */
+.collectible-result-item { /* Should be .collectible-item if JS uses that class */
+    background-color: #2a2a3e;
+    border: 2px solid #ffcc00;
     border-radius: 8px;
     padding: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    color: #333; /* Ensure text is dark on light background */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+    color: #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.collectible-result-item:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5), 0 0 15px rgba(255,204,0,0.25);
+    z-index: 10;
 }
 
 .collectible-result-item img {
     max-width: 100%;
-    height: auto;
+    height: 220px;
+    object-fit: cover;
     display: block;
-    margin-bottom: 10px;
-    border: 1px solid #eee;
+    margin-bottom: 12px;
     border-radius: 4px;
+    border: 1px solid #444;
 }
 
 .collectible-result-item h3 {
-    font-size: 1.1em;
-    color: #0056b3; /* Thematic blue for titles */
-    margin-bottom: 8px;
+    font-size: 1.2em;
+    color: #ffcc00;
+    margin-bottom: 10px;
+    text-align: center;
 }
 
 .collectible-result-item p {
     font-size: 0.9em;
-    line-height: 1.4;
-    margin-bottom: 5px;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+.collectible-result-item p.owner-info {
+    font-size: 0.85em;
+    color: #bbb;
+    margin-top: auto;
+    padding-top: 8px;
+    text-align: right;
+    font-style: normal;
+    border-top: 1px solid #444;
+}
+.collectible-result-item .for-trade-indicator {
+    background-color: #ffcc00;
+    color: #1a1a2e;
+    font-size: 0.8em;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 8px;
+    font-weight: bold;
+    align-self: flex-start;
+    max-width: fit-content;
 }
 
-.collectible-result-item .owner-info {
-    font-size: 0.8em;
-    color: #555;
-    margin-top: 10px;
-    font-style: italic;
+.collectible-result-item .collectible-detail-condition {
+    font-size: 0.85em;
+    color: #b0b0d0; /* Lighter purple/blue for dark theme cards, consistent with style.css */
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: left; /* Or center if preferred */
 }
+
 
 .no-results-message {
-    padding: 15px;
+    padding: 20px;
     text-align: center;
-    color: #555;
+    color: #aaa;
     font-style: italic;
-    grid-column: 1 / -1; /* Span full width of grid if it's the only item */
+    grid-column: 1 / -1;
+    font-size: 1.1em;
 }
 
 /* Responsive adjustments */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+    #user-sidebar { display: none !important; } /* Hide sidebar on smaller screens */
+    #page-content-wrapper.sidebar-active { margin-left: 0; }
+    #page-content-wrapper { padding: 10px; } /* Reduce padding for smaller screens */
+
+
     .page-header {
         flex-direction: column;
-        gap: 10px;
+        gap: 15px;
         text-align: center;
+        padding: 15px; /* Adjusted padding */
+        margin-bottom: 20px;
     }
     .page-header h1 {
+        font-size: 1.8em;
+    }
+    .page-header .nav-link {
+        font-size: 1em;
+    }
+
+    .search-container {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    #search-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+    #search-form input[type="text"],
+    #search-form button[type="submit"] {
+        border-radius: 5px;
+        border-right: 2px solid #555;
+        border-left: 2px solid #555;
+    }
+     #search-form button[type="submit"] {
+        border-left: 2px solid #ffcc00;
+    }
+    #search-form button[type="submit"]:hover {
+        border-left: 2px solid #e6b800;
+    }
+
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    .results-container section h2 {
         font-size: 1.5em;
     }
-    .results-grid {
-        grid-template-columns: 1fr; /* Single column on small screens */
-    }
+}
+
+/* Chat Modal Styling (Copied/Adapted from style.css) */
+.chat-modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.75);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2000;
+    opacity: 0; visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.chat-modal-overlay.active {
+    opacity: 1; visibility: visible;
+}
+.chat-modal-content {
+    background-color: #2a2a3e;
+    color: #e0e0e0; padding: 25px; border-radius: 8px;
+    width: 90%; max-width: 550px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    position: relative; border: 1px solid #ffcc00;
+    display: flex; flex-direction: column; max-height: 85vh;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+.chat-modal-overlay.active .chat-modal-content {
+    transform: scale(1);
+}
+.close-chat-modal-btn {
+    position: absolute; top: 10px; right: 15px; font-size: 2em;
+    color: #aaa; background: none; border: none; cursor: pointer;
+    line-height: 1; padding: 0 5px;
+}
+.close-chat-modal-btn:hover { color: #fff; }
+#chat-modal-title {
+    color: #ffcc00; margin-top: 0; margin-bottom: 15px;
+    padding-bottom: 10px; border-bottom: 1px solid #444;
+    font-size: 1.5em;
+}
+.chat-modal-item-info {
+    display: flex; align-items: center; margin-bottom:15px;
+    padding-bottom:15px; border-bottom:1px solid #444;
+    gap: 10px;
+}
+#chat-modal-item-image { object-fit: cover; }
+#chat-modal-item-name { font-weight: bold; font-size: 1.1em; }
+.chat-messages-container {
+    flex-grow: 1; overflow-y: auto; margin-bottom: 15px;
+    padding: 15px; background-color: rgba(0,0,0,0.25);
+    border-radius: 4px; min-height: 150px;
+}
+.chat-message {
+    margin-bottom: 10px; padding: 10px 12px; border-radius: 8px;
+    word-wrap: break-word; line-height: 1.4; max-width: 75%;
+}
+.chat-message.sent {
+    background-color: #007bff; color: white;
+    margin-left: auto; text-align: left;
+    border-bottom-right-radius: 0;
+}
+.chat-message.received {
+    background-color: #3a3a4e; color: #e0e0e0;
+    margin-right: auto; text-align: left;
+    border-bottom-left-radius: 0;
+}
+.chat-message .msg-sender-name {
+    font-size: 0.75em; color: #ffcc00;
+    display:block; margin-bottom:3px; font-weight: bold;
+}
+.chat-message .msg-timestamp {
+    font-size: 0.7em; color: #aaa; display: block;
+    margin-top: 4px; text-align: inherit;
+}
+.chat-form { display: flex; gap: 10px; margin-top: 10px; }
+.chat-form textarea {
+    flex-grow: 1; padding: 10px; border-radius: 5px;
+    border: 1px solid #555; background-color: #1a1a2e;
+    color: #fff; resize: none; min-height: 45px;
+    font-family: inherit; font-size: 0.95em;
+}
+.chat-form textarea:focus {
+    outline: none; border-color: #ffcc00;
+    box-shadow: 0 0 5px rgba(255,204,0,0.4);
+}
+.chat-form button {
+    white-space:nowrap; border: 1px solid #1a1a2e;
+    font-weight: bold; text-transform: uppercase;
+    font-size: 0.9rem; box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    /* Assuming .sidebar-button-style is used for base colors/padding */
+}
+/* Ensure .sidebar-button-style is defined if used on chat submit, or copy its relevant props */
+.sidebar-button-style { /* Copied from public-gallery.style.css for chat button */
+    background-color: #ffcc00; color: #1a1a2e;
+    padding: 10px 15px; border-radius:5px;
+    font-weight: bold; text-decoration: none;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    font-size: 0.95em; /* Match sidebar button from public gallery */
+}
+.sidebar-button-style:hover {
+    background-color: #e6b800;
+    transform: translateY(-1px);
 }
