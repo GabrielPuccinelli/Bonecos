@@ -1,0 +1,23 @@
+name: Supabase Keep-Alive
+
+on:
+  schedule:
+    - cron: '0 12 */2 * *'   # a cada 2 dias ao meio-dia UTC
+  workflow_dispatch:           # permite rodar manualmente pela aba Actions
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            "https://ivuuiwzoehjvszwefihb.supabase.co/rest/v1/profiles?select=id&limit=1" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2dXVpd3pvZWhqdnN6d2VmaWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzM1MzksImV4cCI6MjA5MzgwOTUzOX0.a5D1ISeTza7eY4-nSI1eabX_n7tV_dut8rpolbKMynQ" \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Iml2dXVpd3pvZWhqdnN6d2VmaWhiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzM1MzksImV4cCI6MjA5MzgwOTUzOX0.a5D1ISeTza7eY4-nSI1eabX_n7tV_dut8rpolbKMynQ")
+          echo "HTTP Status: $STATUS"
+          if [ "$STATUS" = "200" ]; then
+            echo "✅ Supabase está ativo e respondendo."
+          else
+            echo "⚠️  Resposta inesperada: $STATUS"
+          fi
